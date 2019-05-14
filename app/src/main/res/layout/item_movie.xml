@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/img_movie_poster"
+        android:layout_width="60dp"
+        android:layout_height="90dp"
+        android:scaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/tv_movie_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_toEndOf="@id/img_movie_poster"
+        android:text="@string/movie_title_placeholder"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_movie_year"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_movie_title"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="12dp"
+        android:layout_toRightOf="@id/img_movie_poster"
+        android:text="@string/movie_year_placeholder"
+        android:ellipsize="end"/>
+
+    <TextView
+        android:id="@+id/tv_movie_director"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_movie_year"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="4dp"
+        android:layout_toRightOf="@id/img_movie_poster"
+        android:text="@string/movie_director_placeholder"
+        android:ellipsize="end"/>
+
+
+</RelativeLayout>
