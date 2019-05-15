@@ -9,25 +9,24 @@ import com.bumptech.glide.Glide;
 import com.made.calvintd.moviecatalogue.Model.Movie;
 import com.made.calvintd.moviecatalogue.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class DetailActivity extends AppCompatActivity {
     public static final String EXTRA_MOVIE = "extra_movie";
-    private ImageView imgPoster;
-    private TextView tvTitle;
-    private TextView tvDirector;
-    private TextView tvYear;
-    private TextView tvDescription;
+    @BindView(R.id.img_detail_poster) ImageView imgPoster;
+    @BindView(R.id.tv_detail_title) TextView tvTitle;
+    @BindView(R.id.tv_detail_director) TextView tvDirector;
+    @BindView(R.id.tv_detail_year) TextView tvYear;
+    @BindView(R.id.tv_detail_description) TextView tvDescription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
+        ButterKnife.bind(this);
         setTitle(getResources().getString(R.string.detail_activity_title));
-        imgPoster = findViewById(R.id.img_detail_poster);
-        tvTitle = findViewById(R.id.tv_detail_title);
-        tvDirector = findViewById(R.id.tv_detail_director);
-        tvYear = findViewById(R.id.tv_detail_year);
-        tvDescription = findViewById(R.id.tv_detail_description);
 
         Movie movie = getIntent().getParcelableExtra(EXTRA_MOVIE);
 

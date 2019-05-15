@@ -2,6 +2,8 @@ package com.made.calvintd.moviecatalogue.Presenter;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import com.made.calvintd.moviecatalogue.Model.MainModel;
 import com.made.calvintd.moviecatalogue.View.MainView;
@@ -18,13 +20,17 @@ public class MainPresenter {
         this.view = view;
     }
 
-    public void initMovies(Context context, ArrayList<Movie> movies) {
+    public void initMovies(Context context, ArrayList<Movie> movies, RecyclerView rv) {
         String[] titles = context.getResources().getStringArray(R.array.movie_title);
         String[] descriptions = context.getResources().getStringArray(R.array.movie_description);
         TypedArray posters = context.getResources().obtainTypedArray(R.array.movie_poster);
         String[] years = context.getResources().getStringArray(R.array.movie_year);
         String[] directors = context.getResources().getStringArray(R.array.movie_director);
-        MovieAdapter adapter = new MovieAdapter(context);
+
+        rv.setHasFixedSize(true);
+        rv.setLayoutManager(new LinearLayoutManager(context));
+        MovieAdapter movieAdapter = new MovieAdapter(context);
+        movieAdapter.setListMovies(movies);
 
         for(int i = 0; i < titles.length; i++) {
             Movie m = new Movie();
@@ -37,8 +43,7 @@ public class MainPresenter {
         }
 
         posters.recycle();
-        adapter.setMovies(movies);
-        MainModel model = new MainModel(adapter);
+        MainModel model = new MainModel(movieAdapter);
         view.showMovies(model);
     }
 }

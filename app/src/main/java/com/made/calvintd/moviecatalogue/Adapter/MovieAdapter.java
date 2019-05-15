@@ -1,76 +1,69 @@
 package com.made.calvintd.moviecatalogue.Adapter;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+
 import com.made.calvintd.moviecatalogue.Model.Movie;
 import com.made.calvintd.moviecatalogue.R;
 
 import java.util.ArrayList;
 
-public class MovieAdapter extends BaseAdapter {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
     private Context context;
-    private ArrayList<Movie> movies;
+    private ArrayList<Movie> listMovies;
 
-    public void setMovies(ArrayList<Movie> movies) {
-        this.movies = movies;
-    }
+    public ArrayList<Movie> getListMovies() { return listMovies; }
 
-    public MovieAdapter(Context context) {
+    public void setListMovies(ArrayList<Movie> listMovies) { this.listMovies = listMovies; }
+
+    public MovieAdapter (Context context) {
         this.context = context;
-        movies = new ArrayList<Movie>();
+    }
+
+    @NonNull
+    @Override
+    public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
+        View itemRow = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_movie, parent, false);
+        return new MovieViewHolder(itemRow);
     }
 
     @Override
-    public int getCount() {
-        return movies.size();
+    public void onBindViewHolder(@NonNull MovieViewHolder movieViewHolder, int i) {
+        Glide.with(context)
+                .load(getListMovies().get(i).getPoster())
+                .apply(new RequestOptions().override(60, 90))
+                .into(movieViewHolder.imgPoster);
+        movieViewHolder.tvTitle.setText(getListMovies().get(i).getTitle());
+        movieViewHolder.tvYear.setText(getListMovies().get(i).getTitle());
+        movieViewHolder.tvDirector.setText(getListMovies().get(i).getDirector());
     }
 
     @Override
-    public Object getItem(int i) {
-        return movies.get(i);
+    public int getItemCount() {
+        return getListMovies().size();
     }
 
-    @Override
-    public long getItemId(int i) {
-        return i;
-    }
+    class MovieViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.img_movie_poster) ImageView imgPoster;
+        @BindView(R.id.tv_movie_title) TextView tvTitle;
+        @BindView(R.id.tv_movie_year) TextView tvYear;
+        @BindView(R.id.tv_movie_director) TextView tvDirector;
 
-    @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        if (view == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.item_movie, viewGroup, false);
-        }
-        ViewHolder viewHolder = new ViewHolder(view);
-        Movie movie = (Movie) getItem(i);
-        viewHolder.bind(movie);
-        return view;
-    }
-
-    private class ViewHolder {
-        private ImageView imgPoster;
-        private TextView tvTitle;
-        private TextView tvYear;
-        private TextView tvDirector;
-
-        ViewHolder(View view) {
-            imgPoster = view.findViewById(R.id.img_movie_poster);
-            tvTitle = view.findViewById(R.id.tv_movie_title);
-            tvYear = view.findViewById(R.id.tv_movie_year);
-            tvDirector = view.findViewById(R.id.tv_movie_director);
-        }
-
-        void bind(Movie movie) {
-            Glide.with(context).load(movie.getPoster()).into(imgPoster);
-            tvTitle.setText(movie.getTitle());
-            tvYear.setText(movie.getYear());
-            tvDirector.setText(movie.getDirector());
+        MovieViewHolder(@NonNull View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
         }
     }
 }
