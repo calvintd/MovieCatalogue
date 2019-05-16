@@ -16,7 +16,9 @@ public class DetailActivity extends AppCompatActivity {
     public static final String EXTRA_MOVIE = "extra_movie";
     @BindView(R.id.img_detail_poster) ImageView imgPoster;
     @BindView(R.id.tv_detail_title) TextView tvTitle;
-    @BindView(R.id.tv_detail_director) TextView tvDirector;
+    @BindView(R.id.tv_detail_category) TextView tvCategory;
+    @BindView(R.id.tv_detail_figure_id) TextView tvFigureId;
+    @BindView(R.id.tv_detail_figure) TextView tvFigure;
     @BindView(R.id.tv_detail_year) TextView tvYear;
     @BindView(R.id.tv_detail_description) TextView tvDescription;
 
@@ -32,7 +34,15 @@ public class DetailActivity extends AppCompatActivity {
 
         Glide.with(this).load(movie.getPoster()).into(imgPoster);
         tvTitle.setText(movie.getTitle());
-        tvDirector.setText(movie.getDirector());
+        switch (movie.getCategory()) {
+            case 1: tvCategory.setText(getResources().getString(R.string.detail_category_movie));
+                    tvFigureId.setText(getResources().getString(R.string.detail_figure_director));
+                    break;
+            case 2: tvCategory.setText(getResources().getString(R.string.detail_category_tv_show));
+                    tvFigureId.setText(getResources().getString(R.string.detail_figure_creator));
+                    break;
+        }
+        tvFigure.setText(movie.getFigure());
         tvYear.setText(movie.getYear());
         tvDescription.setText(movie.getDescription());
     }

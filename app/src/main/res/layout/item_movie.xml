@@ -32,15 +32,14 @@
         android:ellipsize="end"/>
 
     <TextView
-        android:id="@+id/tv_movie_director"
+        android:id="@+id/tv_movie_figure"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_movie_year"
         android:layout_marginStart="20dp"
         android:layout_marginTop="4dp"
         android:layout_toEndOf="@id/img_movie_poster"
-        android:text="@string/movie_director_placeholder"
+        android:text="@string/movie_figure_placeholder"
         android:ellipsize="end"/>
-
 
 </RelativeLayout>

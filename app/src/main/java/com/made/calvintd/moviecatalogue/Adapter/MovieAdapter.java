@@ -47,7 +47,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
                 .into(movieViewHolder.imgPoster);
         movieViewHolder.tvTitle.setText(getListMovies().get(i).getTitle());
         movieViewHolder.tvYear.setText(getListMovies().get(i).getTitle());
-        movieViewHolder.tvDirector.setText(getListMovies().get(i).getDirector());
+        movieViewHolder.tvFigure.setText(getListMovies().get(i).getFigure());
     }
 
     @Override
@@ -59,7 +59,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         @BindView(R.id.img_movie_poster) ImageView imgPoster;
         @BindView(R.id.tv_movie_title) TextView tvTitle;
         @BindView(R.id.tv_movie_year) TextView tvYear;
-        @BindView(R.id.tv_movie_director) TextView tvDirector;
+        @BindView(R.id.tv_movie_figure) TextView tvFigure;
 
         MovieViewHolder(@NonNull View itemView) {
             super(itemView);

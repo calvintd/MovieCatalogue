@@ -9,7 +9,8 @@ public class Movie implements Parcelable {
     private String title;
     private String description;
     private String year;
-    private String director;
+    private String figure;
+    private int category;
 
     public int getPoster() {
         return poster;
@@ -43,12 +44,20 @@ public class Movie implements Parcelable {
         this.year = year;
     }
 
-    public String getDirector() {
-        return director;
+    public String getFigure() {
+        return figure;
     }
 
-    public void setDirector(String director) {
-        this.director = director;
+    public void setFigure(String figure) {
+        this.figure = figure;
+    }
+
+    public int getCategory() {
+        return category;
+    }
+
+    public void setCategory(int category) {
+        this.category = category;
     }
 
     @Override
@@ -62,18 +71,20 @@ public class Movie implements Parcelable {
         dest.writeString(this.title);
         dest.writeString(this.description);
         dest.writeString(this.year);
-        dest.writeString(this.director);
+        dest.writeString(this.figure);
+        dest.writeInt(this.category);
     }
 
     public Movie() {
     }
 
-    protected Movie(Parcel in) {
+    private Movie(Parcel in) {
         this.poster = in.readInt();
         this.title = in.readString();
         this.description = in.readString();
         this.year = in.readString();
-        this.director = in.readString();
+        this.figure = in.readString();
+        this.category = in.readInt();
     }
 
     public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {

@@ -25,7 +25,9 @@ public class MainPresenter {
         String[] descriptions = context.getResources().getStringArray(R.array.movie_description);
         TypedArray posters = context.getResources().obtainTypedArray(R.array.movie_poster);
         String[] years = context.getResources().getStringArray(R.array.movie_year);
-        String[] directors = context.getResources().getStringArray(R.array.movie_director);
+        String[] figures = context.getResources().getStringArray(R.array.movie_figure);
+        Integer[] categories = new Integer[context.getResources().getStringArray(R.array.movie_category).length];
+        parseIntCategoryLoop(context.getResources().getStringArray(R.array.movie_category), categories);
 
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(context));
@@ -38,12 +40,20 @@ public class MainPresenter {
             m.setDescription(descriptions[i]);
             m.setPoster(posters.getResourceId(i, -1));
             m.setYear(years[i]);
-            m.setDirector(directors[i]);
+            m.setFigure(figures[i]);
+            m.setCategory(categories[i]);
             movies.add(m);
         }
 
         posters.recycle();
         MainModel model = new MainModel(movieAdapter);
         view.showMovies(model);
+    }
+
+    private void parseIntCategoryLoop(String[] catStr, Integer[] catInt) {
+        int i = 0;
+        for(String cat: catStr) {
+            catInt[i++] = Integer.parseInt(cat);
+        }
     }
 }
