@@ -28,8 +28,8 @@
     <string name="sample_description">Deskripsi Contoh</string>
     <string name="movie_poster_content_description">Poster Film</string>
 
-    <!-- language activity -->
-    <string name="language_activity_title">Bahasa</string>
+    <!-- language fragment -->
+    <string name="language_fragment_title">Bahasa</string>
     <string name="language_options_en">Inggris</string>
     <string name="language_options_in">Indonesia</string>
     <string name="btn_language_choose">Pilih Bahasa</string>
@@ -37,7 +37,6 @@
 
     <!-- menu -->
     <string name="menu_language">Ubah Bahasa</string>
-    <string name="menu_tooltip_language">Ubah bahasa</string>
 
     <!-- titles -->
     <string-array name="movie_title">

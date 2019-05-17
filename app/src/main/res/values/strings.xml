@@ -28,8 +28,8 @@
     <string name="sample_description">Sample Description</string>
     <string name="movie_poster_content_description">Movie Poster</string>
 
-    <!-- language activity -->
-    <string name="language_activity_title">Languages</string>
+    <!-- language fragment -->
+    <string name="language_fragment_title">Languages</string>
     <string name="language_options_en">English</string>
     <string name="language_options_in">Indonesian</string>
     <string name="btn_language_choose">Choose Language</string>
@@ -37,7 +37,6 @@
 
     <!-- menu -->
     <string name="menu_language">Change Language</string>
-    <string name="menu_tooltip_language">Change language</string>
 
     <!-- titles -->
     <string-array name="movie_title">
@@ -466,6 +465,9 @@
         <item name="The Umbrella Academy">2</item>
         <item name="The Walking Dead">2</item>
     </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

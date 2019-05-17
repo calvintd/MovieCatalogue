@@ -5,6 +5,5 @@
         android:id="@+id/menu_language"
         android:icon="@drawable/ic_menu_language"
         android:title="@string/menu_language"
-        android:tooltipText="@string/menu_tooltip_language"
         app:showAsAction="always"/>
 </menu>
