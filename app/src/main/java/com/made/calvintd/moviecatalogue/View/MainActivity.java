@@ -1,10 +1,13 @@
 package com.made.calvintd.moviecatalogue.View;
 
+import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.support.design.widget.TabLayout;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.made.calvintd.moviecatalogue.Adapter.PagerAdapter;
 import com.made.calvintd.moviecatalogue.Fragment.MovieFragment;
@@ -37,5 +40,21 @@ public class MainActivity extends AppCompatActivity {
 
         viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.menu_language:
+                startActivity(new Intent(this, LanguageActivity.class));
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
