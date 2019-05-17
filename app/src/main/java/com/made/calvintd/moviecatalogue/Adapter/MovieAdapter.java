@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 
 import com.made.calvintd.moviecatalogue.Model.Movie;
 import com.made.calvintd.moviecatalogue.R;
@@ -43,10 +42,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     public void onBindViewHolder(@NonNull MovieViewHolder movieViewHolder, int i) {
         Glide.with(context)
                 .load(getListMovies().get(i).getPoster())
-                .apply(new RequestOptions().override(60, 90))
                 .into(movieViewHolder.imgPoster);
         movieViewHolder.tvTitle.setText(getListMovies().get(i).getTitle());
-        movieViewHolder.tvYear.setText(getListMovies().get(i).getTitle());
+        movieViewHolder.tvYear.setText(getListMovies().get(i).getYear());
         movieViewHolder.tvFigure.setText(getListMovies().get(i).getFigure());
     }
 

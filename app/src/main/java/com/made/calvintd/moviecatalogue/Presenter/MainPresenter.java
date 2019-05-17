@@ -20,7 +20,7 @@ public class MainPresenter {
         this.view = view;
     }
 
-    public void initMovies(Context context, ArrayList<Movie> movies, RecyclerView rv) {
+    public void initMovies(Context context, ArrayList<Movie> movies, MovieAdapter movieAdapter, RecyclerView rv, int catId) {
         String[] titles = context.getResources().getStringArray(R.array.movie_title);
         String[] descriptions = context.getResources().getStringArray(R.array.movie_description);
         TypedArray posters = context.getResources().obtainTypedArray(R.array.movie_poster);
@@ -31,22 +31,23 @@ public class MainPresenter {
 
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(context));
-        MovieAdapter movieAdapter = new MovieAdapter(context);
-        movieAdapter.setListMovies(movies);
 
         for(int i = 0; i < titles.length; i++) {
-            Movie m = new Movie();
-            m.setName(titles[i]);
-            m.setDescription(descriptions[i]);
-            m.setPoster(posters.getResourceId(i, -1));
-            m.setYear(years[i]);
-            m.setFigure(figures[i]);
-            m.setCategory(categories[i]);
-            movies.add(m);
+            if(categories[i] == catId) {
+                Movie m = new Movie();
+                m.setName(titles[i]);
+                m.setDescription(descriptions[i]);
+                m.setPoster(posters.getResourceId(i, -1));
+                m.setYear(years[i]);
+                m.setFigure(figures[i]);
+                m.setCategory(categories[i]);
+                movies.add(m);
+            }
         }
 
         posters.recycle();
-        MainModel model = new MainModel(movieAdapter);
+        movieAdapter.setListMovies(movies);
+        MainModel model = new MainModel(movies, movieAdapter);
         view.showMovies(model);
     }
 
