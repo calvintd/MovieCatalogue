@@ -32,8 +32,10 @@
     <string name="language_fragment_title">Bahasa</string>
     <string name="language_options_en">Inggris</string>
     <string name="language_options_in">Indonesia</string>
-    <string name="btn_language_choose">Pilih Bahasa</string>
-    <string name="language_toast_chosen">Penggantian bahasa aplikasi sukses!</string>
+    <string name="btn_language_choose">Pilih</string>
+    <string name="btn_language_close">Tutup</string>
+    <string name="language_message_currently_used">Ini adalah bahasa yang sedang digunakan!</string>
+    <string name="language_message_chosen">Penggantian bahasa aplikasi sukses!</string>
 
     <!-- menu -->
     <string name="menu_language">Ubah Bahasa</string>

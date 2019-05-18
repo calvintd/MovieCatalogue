@@ -3,6 +3,7 @@ package com.made.calvintd.moviecatalogue.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -30,14 +31,13 @@ public class TVShowFragment extends Fragment implements MainView {
     @BindView(R.id.rv_movies) RecyclerView rvMovies;
     private ArrayList<Movie> movies = new ArrayList<>();
     private final MainPresenter presenter = new MainPresenter(this);
-    private final int category = 2; //1 = movie
 
     public TVShowFragment() {
         // Required empty public constructor
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_tvshow, container, false);

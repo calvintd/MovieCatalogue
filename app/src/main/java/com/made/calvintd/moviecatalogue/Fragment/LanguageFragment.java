@@ -1,15 +1,19 @@
 package com.made.calvintd.moviecatalogue.Fragment;
 
-import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.made.calvintd.moviecatalogue.R;
@@ -22,32 +26,39 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LanguageFragment extends DialogFragment {
+public class LanguageFragment extends DialogFragment implements View.OnClickListener {
+    @BindView(R.id.rg_language) RadioGroup rgLanguage;
     @BindView(R.id.rb_language_en) RadioButton rbLanguageEN;
     @BindView(R.id.rb_language_in) RadioButton rbLanguageIN;
+    @BindView(R.id.btn_language_choose) Button btnChoose;
+    @BindView(R.id.btn_language_close) Button btnClose;
     private Configuration config;
-    OnOptionDialogListener optionDialogListener;
+    final Locale inLocale = new Locale("in");
+    final Locale enLocale = Locale.ENGLISH;
 
     public LanguageFragment() {
         // Required empty public constructor
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_language, container, false);
+        return inflater.inflate(R.layout.fragment_language, container, false);
+    }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
-
+        btnChoose.setOnClickListener(this);
+        btnClose.setOnClickListener(this);
         config = this.getResources().getConfiguration();
-        final Locale inLocale = new Locale("in");
-        final Locale enLocale = Locale.ENGLISH;
 
         if(config.locale != null) {
             if(config.locale.equals(inLocale)) {
                 rbLanguageIN.toggle();
-            } else if(!config.locale.equals(inLocale)) {
+            } else if(!config.locale.equals(enLocale)) {
                 rbLanguageEN.toggle();
             } else {
                 Locale defaultLocale = Locale.getDefault();
@@ -58,57 +69,55 @@ public class LanguageFragment extends DialogFragment {
                 }
             }
         }
-
-        /*
-        btnLanguageChoose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch(rgLanguage.getCheckedRadioButtonId()) {
-                    case R.id.rb_language_en:
-                        config.setLocale(enLocale);
-                        config.setLayoutDirection(enLocale);
-                        break;
-                    case R.id.rb_language_in:
-                        config.setLocale(inLocale);
-                        config.setLayoutDirection(inLocale);
-                        break;
-                }
-                Toast.makeText(v.getContext(), getResources().getString(R.string.language_toast_chosen), Toast.LENGTH_SHORT).show();
-                onConfigurationChanged(config);
-            }
-        });
-        */
-
-        return view;
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Fragment fragment = getParentFragment();
-
-        if (fragment instanceof LanguageFragment) {
-            LanguageFragment detailCategoryFragment = (LanguageFragment) fragment;
-            this.optionDialogListener = detailCategoryFragment.optionDialogListener;
+    public void onClick(View v) {
+        switch(v.getId()) {
+            case R.id.btn_language_choose:
+                switch(rgLanguage.getCheckedRadioButtonId()) {
+                    case R.id.rb_language_en:
+                        if (config.locale.equals(enLocale)) {
+                            showToastCurrentLanguage();
+                        } else {
+                            config.setLocale(enLocale);
+                            config.setLayoutDirection(enLocale);
+                            onConfigurationChanged(config);
+                            showToastChanged();
+                        }
+                        break;
+                    case R.id.rb_language_in:
+                        if (config.locale.equals(inLocale)) {
+                            showToastCurrentLanguage();
+                        } else {
+                            config.setLocale(inLocale);
+                            config.setLayoutDirection(inLocale);
+                            onConfigurationChanged(config);
+                            showToastChanged();
+                        }
+                        break;
+                }
+            case R.id.btn_language_close:
+                this.dismiss();
+                break;
         }
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        this.optionDialogListener = null;
+    private void showToastCurrentLanguage() {
+        Toast.makeText(this.getContext(), getResources().getString(R.string.language_message_currently_used), Toast.LENGTH_SHORT).show();
+    }
+
+    private void showToastChanged() {
+        Toast.makeText(this.getContext(), getResources().getString(R.string.language_message_chosen), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onConfigurationChanged(Configuration config) {
         super.onConfigurationChanged(config);
         Resources res = this.getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
 
-        res.updateConfiguration(config, res.getDisplayMetrics());
+        res.updateConfiguration(config, dm);
+        this.getActivity().recreate();
     }
-
-    public interface OnOptionDialogListener {
-        void onOptionChosen(String text);
-    }
-
 }

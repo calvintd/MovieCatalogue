@@ -1,16 +1,24 @@
 package com.made.calvintd.moviecatalogue.View;
 
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.made.calvintd.moviecatalogue.Fragment.LanguageFragment;
 import com.made.calvintd.moviecatalogue.Model.Movie;
 import com.made.calvintd.moviecatalogue.R;
+
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,6 +32,7 @@ public class DetailActivity extends AppCompatActivity {
     @BindView(R.id.tv_detail_figure) TextView tvFigure;
     @BindView(R.id.tv_detail_year) TextView tvYear;
     @BindView(R.id.tv_detail_description) TextView tvDescription;
+    private Configuration config;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +46,7 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         Movie movie = getIntent().getParcelableExtra(EXTRA_MOVIE);
+        config = this.getResources().getConfiguration();
 
         Glide.with(this).load(movie.getPoster()).into(imgPoster);
         tvTitle.setText(movie.getTitle());
@@ -71,14 +81,20 @@ public class DetailActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.menu_language:
-                startActivity(new Intent(this, LanguageActivity.class));
+                LanguageFragment languageFragment = new LanguageFragment();
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                languageFragment.show(fragmentManager, LanguageFragment.class.getSimpleName());
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
-    public void onRestart(){
-        super.onRestart();
+    public void onConfigurationChanged(Configuration config) {
+        super.onConfigurationChanged(config);
+        Resources res = this.getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+
+        res.updateConfiguration(config, dm);
     }
 }

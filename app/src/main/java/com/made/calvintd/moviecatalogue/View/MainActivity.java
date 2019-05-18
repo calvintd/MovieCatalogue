@@ -1,21 +1,25 @@
 package com.made.calvintd.moviecatalogue.View;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.res.Resources;
 import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.support.design.widget.TabLayout;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.made.calvintd.moviecatalogue.Adapter.PagerAdapter;
+import com.made.calvintd.moviecatalogue.Fragment.LanguageFragment;
 import com.made.calvintd.moviecatalogue.Fragment.MovieFragment;
 import com.made.calvintd.moviecatalogue.Fragment.TVShowFragment;
 import com.made.calvintd.moviecatalogue.R;
+
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.main_toolbar) Toolbar toolbar;
     @BindView(R.id.main_tab_layout) TabLayout tabLayout;
     @BindView(R.id.main_pager) ViewPager viewPager;
+    private Configuration config;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
         if(getSupportActionBar() != null) {
             getSupportActionBar().setTitle(getResources().getString(R.string.main_activity_title));
         }
+
+        config = this.getResources().getConfiguration();
 
         PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
         pagerAdapter.addFragment(new MovieFragment(), getResources().getString(R.string.tab_layout_movie));
@@ -55,14 +62,27 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.menu_language:
-                startActivity(new Intent(this, LanguageActivity.class));
+                LanguageFragment mLanguageFragment = new LanguageFragment();
+                FragmentManager mFragmentManager = getSupportFragmentManager();
+                mLanguageFragment.show(mFragmentManager, LanguageFragment.class.getSimpleName());
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
-    public void onRestart(){
+    public void onRestart() {
         super.onRestart();
+        onConfigurationChanged(config);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration config) {
+        super.onConfigurationChanged(config);
+        Resources res = this.getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+
+        res.updateConfiguration(config, dm);
+        this.recreate();
     }
 }
