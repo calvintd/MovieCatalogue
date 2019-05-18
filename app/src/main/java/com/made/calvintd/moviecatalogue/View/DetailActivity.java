@@ -1,6 +1,5 @@
 package com.made.calvintd.moviecatalogue.View;
 
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.support.v4.app.FragmentManager;
@@ -11,14 +10,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.made.calvintd.moviecatalogue.Fragment.LanguageFragment;
 import com.made.calvintd.moviecatalogue.Model.Movie;
 import com.made.calvintd.moviecatalogue.R;
-
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

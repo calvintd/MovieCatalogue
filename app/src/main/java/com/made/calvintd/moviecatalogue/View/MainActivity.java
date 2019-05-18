@@ -11,15 +11,12 @@ import android.support.design.widget.TabLayout;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.made.calvintd.moviecatalogue.Adapter.PagerAdapter;
 import com.made.calvintd.moviecatalogue.Fragment.LanguageFragment;
 import com.made.calvintd.moviecatalogue.Fragment.MovieFragment;
 import com.made.calvintd.moviecatalogue.Fragment.TVShowFragment;
 import com.made.calvintd.moviecatalogue.R;
-
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
