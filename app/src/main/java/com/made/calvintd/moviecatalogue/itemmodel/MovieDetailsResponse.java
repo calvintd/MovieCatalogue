@@ -35,6 +35,12 @@ public class MovieDetailsResponse {
     private List<ProductionCompanies> productionCompanies;
     @SerializedName("production_countries")
     private List<ProductionCountries> productionCountries;
+    @SerializedName("release_date")
+    private String releaseDate;
+    @SerializedName("revenue")
+    private int revenue;
+    @SerializedName("runtime")
+    private int runtime;
     @SerializedName("spoken_languages")
     private List<SpokenLanguages> spokenLanguages;
     @SerializedName("status")
@@ -53,8 +59,8 @@ public class MovieDetailsResponse {
     public MovieDetailsResponse(boolean adult, String backdropPath, Object belongsToCollection, int budget, List<Genres> genres, String homepage,
                                 int id, String imdbId, String originalLanguage, String originalTitle, String overview, double popularity,
                                 String posterPath, List<ProductionCompanies> productionCompanies, List<ProductionCountries> productionCountries,
-                                List<SpokenLanguages> spokenLanguages, String status, String tagline, String title, boolean video,
-                                double voteAverage, int voteCount) {
+                                String releaseDate, int revenue, int runtime, List<SpokenLanguages> spokenLanguages, String status, String tagline,
+                                String title, boolean video, double voteAverage, int voteCount) {
         this.adult = adult;
         this.backdropPath = backdropPath;
         this.belongsToCollection = belongsToCollection;
@@ -70,6 +76,9 @@ public class MovieDetailsResponse {
         this.posterPath = posterPath;
         this.productionCompanies = productionCompanies;
         this.productionCountries = productionCountries;
+        this.releaseDate = releaseDate;
+        this.revenue = revenue;
+        this.runtime = runtime;
         this.spokenLanguages = spokenLanguages;
         this.status = status;
         this.tagline = tagline;
@@ -197,6 +206,30 @@ public class MovieDetailsResponse {
 
     public void setProductionCountries(List<ProductionCountries> productionCountries) {
         this.productionCountries = productionCountries;
+    }
+
+    public String getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(String releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
+    public int getRevenue() {
+        return revenue;
+    }
+
+    public void setRevenue(int revenue) {
+        this.revenue = revenue;
+    }
+
+    public int getRuntime() {
+        return runtime;
+    }
+
+    public void setRuntime(int runtime) {
+        this.runtime = runtime;
     }
 
     public List<SpokenLanguages> getSpokenLanguages() {

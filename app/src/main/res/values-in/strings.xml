@@ -13,9 +13,9 @@
     <string name="tv_movie_title_placeholder">Judul Film</string>
     <string name="tv_movie_release_date_placeholder">2019-06-01</string>
     <string name="tv_movie_runtime_placeholder">90 menit</string>
-    <string name="tv_movie_detail_title_placeholder">Judul</string>
-    <string name="tv_movie_detail_release_date_placeholder">Tanggal Rilis</string>
-    <string name="tv_movie_detail_runtime_placeholder">Durasi</string>
+    <string name="tv_movie_details_title_placeholder">Judul</string>
+    <string name="tv_movie_details_release_date_placeholder">Tanggal Rilis</string>
+    <string name="tv_movie_details_runtime_placeholder">Durasi</string>
     <plurals name="tv_movie_runtime">
         <item quantity="other">%d menit</item>
     </plurals>
@@ -25,10 +25,10 @@
     <string name="tv_tvshow_first_air_date_placeholder">2019-06-01</string>
     <string name="tv_tvshow_last_air_date_placeholder">2020-06-01</string>
     <string name="tv_tvshow_episodes_seasons_placeholder">99 episode (9 musim)</string>
-    <string name="tv_tvshow_detail_name_placeholder">Nama</string>
-    <string name="tv_tvshow_detail_first_air_date_placeholder">Tayangan Pertama</string>
-    <string name="tv_tvshow_detail_last_air_date_placeholder">Tayangan Terakhir</string>
-    <string name="tv_tvshow_detail_episodes_seasons_placeholder">Episode (Musim)</string>
+    <string name="tv_tvshow_details_name_placeholder">Nama</string>
+    <string name="tv_tvshow_details_first_air_date_placeholder">Tayangan Pertama</string>
+    <string name="tv_tvshow_details_last_air_date_placeholder">Tayangan Terakhir</string>
+    <string name="tv_tvshow_details_episodes_seasons_placeholder">Episode (Musim)</string>
     <plurals name="tv_tvshow_episodes">
         <item quantity="other">%d episode</item>
     </plurals>
@@ -37,8 +37,9 @@
     </plurals>
 
     <!-- detail activity -->
-    <string name="tv_detail_score_id">Nilai</string>
-    <string name="tv_detail_score_placeholder">9.00 (900 suara)</string>
+    <string name="details_activity_title">Rincian</string>
+    <string name="tv_details_score_id">Nilai</string>
+    <string name="tv_details_score_placeholder">9.00 (900 suara)</string>
     <plurals name="tv_score">
         <item quantity="other">(%d suara)</item>
     </plurals>

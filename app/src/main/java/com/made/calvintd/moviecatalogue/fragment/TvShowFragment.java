@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.made.calvintd.moviecatalogue.activity.TvShowDetailActivity;
+import com.made.calvintd.moviecatalogue.activity.TvShowDetailsActivity;
 import com.made.calvintd.moviecatalogue.itemmodel.TvShow;
 import com.made.calvintd.moviecatalogue.model.TvShowModel;
 import com.made.calvintd.moviecatalogue.presenter.TvShowPresenter;
@@ -55,8 +55,8 @@ public class TvShowFragment extends Fragment implements TvShowView {
     }
 
     private void showDetails(TvShow tvShow) {
-        Intent intent = new Intent(getActivity(), TvShowDetailActivity.class);
-        intent.putExtra(TvShowDetailActivity.EXTRA_TVSHOW, tvShow);
+        Intent intent = new Intent(getActivity(), TvShowDetailsActivity.class);
+        intent.putExtra(TvShowDetailsActivity.EXTRA_TVSHOW, tvShow);
         startActivity(intent);
     }
 

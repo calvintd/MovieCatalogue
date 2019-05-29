@@ -5,15 +5,15 @@ import android.os.Parcelable;
 
 public class Movie implements Parcelable {
     private int id;
-    private int overview;
+    private String overview;
     private String posterPath;
     private String releaseDate;
     private int runtime;
-    private int title;
-    private int voteAverage;
+    private String title;
+    private double voteAverage;
     private int voteCount;
 
-    public Movie(int id, int overview, String posterPath, String releaseDate, int runtime, int title, int voteAverage, int voteCount) {
+    public Movie(int id, String overview, String posterPath, String releaseDate, int runtime, String title, double voteAverage, int voteCount) {
         this.id = id;
         this.overview = overview;
         this.posterPath = posterPath;
@@ -32,11 +32,11 @@ public class Movie implements Parcelable {
         this.id = id;
     }
 
-    public int getOverview() {
+    public String getOverview() {
         return overview;
     }
 
-    public void setOverview(int overview) {
+    public void setOverview(String overview) {
         this.overview = overview;
     }
 
@@ -64,19 +64,19 @@ public class Movie implements Parcelable {
         this.runtime = runtime;
     }
 
-    public int getTitle() {
+    public String getTitle() {
         return title;
     }
 
-    public void setTitle(int title) {
+    public void setTitle(String title) {
         this.title = title;
     }
 
-    public int getVoteAverage() {
+    public double getVoteAverage() {
         return voteAverage;
     }
 
-    public void setVoteAverage(int voteAverage) {
+    public void setVoteAverage(double voteAverage) {
         this.voteAverage = voteAverage;
     }
 
@@ -97,23 +97,23 @@ public class Movie implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.id);
-        dest.writeInt(this.overview);
+        dest.writeString(this.overview);
         dest.writeString(this.posterPath);
         dest.writeString(this.releaseDate);
         dest.writeInt(this.runtime);
-        dest.writeInt(this.title);
-        dest.writeInt(this.voteAverage);
+        dest.writeString(this.title);
+        dest.writeDouble(this.voteAverage);
         dest.writeInt(this.voteCount);
     }
 
     protected Movie(Parcel in) {
         this.id = in.readInt();
-        this.overview = in.readInt();
+        this.overview = in.readString();
         this.posterPath = in.readString();
         this.releaseDate = in.readString();
         this.runtime = in.readInt();
-        this.title = in.readInt();
-        this.voteAverage = in.readInt();
+        this.title = in.readString();
+        this.voteAverage = in.readDouble();
         this.voteCount = in.readInt();
     }
 

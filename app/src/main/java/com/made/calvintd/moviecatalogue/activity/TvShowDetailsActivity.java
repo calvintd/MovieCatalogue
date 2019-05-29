@@ -19,7 +19,7 @@ import com.made.calvintd.moviecatalogue.itemmodel.Movie;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class TvShowDetailActivity extends AppCompatActivity {
+public class TvShowDetailsActivity extends AppCompatActivity {
     public static final String EXTRA_TVSHOW = "extra_tvshow";
     @BindView(R.id.img_detail_poster) ImageView imgPoster;
     @BindView(R.id.tv_detail_title) TextView tvTitle;

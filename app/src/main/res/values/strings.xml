@@ -13,9 +13,9 @@
     <string name="tv_movie_title_placeholder">Movie Title</string>
     <string name="tv_movie_release_date_placeholder">2019-06-01</string>
     <string name="tv_movie_runtime_placeholder">90 minutes</string>
-    <string name="tv_movie_detail_title_placeholder">Title</string>
-    <string name="tv_movie_detail_release_date_placeholder">Release Date</string>
-    <string name="tv_movie_detail_runtime_placeholder">Runtime</string>
+    <string name="tv_movie_details_title_placeholder">Title</string>
+    <string name="tv_movie_details_release_date_placeholder">Release Date</string>
+    <string name="tv_movie_details_runtime_placeholder">Runtime</string>
     <plurals name="tv_movie_runtime">
         <item quantity="one">%d minute</item>
         <item quantity="other">%d minutes</item>
@@ -26,10 +26,10 @@
     <string name="tv_tvshow_first_air_date_placeholder">2019-06-01</string>
     <string name="tv_tvshow_last_air_date_placeholder">2020-06-01</string>
     <string name="tv_tvshow_episodes_seasons_placeholder">99 episodes (9 seasons)</string>
-    <string name="tv_tvshow_detail_name_placeholder">Name</string>
-    <string name="tv_tvshow_detail_first_air_date_placeholder">First Air Date</string>
-    <string name="tv_tvshow_detail_last_air_date_placeholder">Last Air Date</string>
-    <string name="tv_tvshow_detail_episodes_seasons_placeholder">Episodes (Seasons)</string>
+    <string name="tv_tvshow_details_name_placeholder">Name</string>
+    <string name="tv_tvshow_details_first_air_date_placeholder">First Air Date</string>
+    <string name="tv_tvshow_details_last_air_date_placeholder">Last Air Date</string>
+    <string name="tv_tvshow_details_episodes_seasons_placeholder">Episodes (Seasons)</string>
     <plurals name="tv_tvshow_episodes">
         <item quantity="one">%d episode</item>
         <item quantity="other">%d episodes</item>
@@ -39,14 +39,15 @@
         <item quantity="other">(%d seasons)</item>
     </plurals>
 
-    <!-- detail activity -->
-    <string name="tv_detail_score_id">Score</string>
-    <string name="tv_detail_score_placeholder">9.00 (900 votes)</string>
+    <!-- details activity -->
+    <string name="details_activity_title">Details</string>
+    <string name="tv_details_score_id">Score</string>
+    <string name="tv_details_score_placeholder">9.00 (900 votes)</string>
     <plurals name="tv_score">
         <item quantity="one">(%d vote)</item>
         <item quantity="other">(%d votes)</item>
     </plurals>
-    <string name="tv_detail_overview_placeholder" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+    <string name="tv_details_overview_placeholder" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
         incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
         commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
         occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>

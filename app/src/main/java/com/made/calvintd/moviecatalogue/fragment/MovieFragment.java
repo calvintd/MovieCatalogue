@@ -9,13 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.made.calvintd.moviecatalogue.adapter.MovieAdapter;
+import com.made.calvintd.moviecatalogue.activity.MovieDetailsActivity;
 import com.made.calvintd.moviecatalogue.model.MovieModel;
 import com.made.calvintd.moviecatalogue.itemmodel.Movie;
 import com.made.calvintd.moviecatalogue.presenter.MoviePresenter;
 import com.made.calvintd.moviecatalogue.R;
 import com.made.calvintd.moviecatalogue.recyclerviewsupport.ItemClickSupport;
-import com.made.calvintd.moviecatalogue.activity.MovieDetailActivity;
 import com.made.calvintd.moviecatalogue.view.MovieView;
 
 import java.util.ArrayList;
@@ -56,8 +55,8 @@ public class MovieFragment extends Fragment implements MovieView {
     }
 
     private void showDetails(Movie movie) {
-        Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
-        intent.putExtra(MovieDetailActivity.EXTRA_MOVIE, movie);
+        Intent intent = new Intent(getActivity(), MovieDetailsActivity.class);
+        intent.putExtra(MovieDetailsActivity.EXTRA_MOVIE, movie);
         startActivity(intent);
     }
 

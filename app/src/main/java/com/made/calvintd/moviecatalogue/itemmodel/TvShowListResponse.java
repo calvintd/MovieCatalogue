@@ -53,7 +53,7 @@ public class TvShowListResponse {
         this.totalResults = totalResults;
     }
 
-    private class Results {
+    public class Results {
         @SerializedName("poster_path")
         private String posterPath;
         @SerializedName("popularity")

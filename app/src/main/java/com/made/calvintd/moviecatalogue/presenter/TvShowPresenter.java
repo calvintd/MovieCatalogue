@@ -7,12 +7,14 @@ import android.support.v7.widget.RecyclerView;
 import com.made.calvintd.moviecatalogue.adapter.TvShowAdapter;
 import com.made.calvintd.moviecatalogue.itemmodel.TvShow;
 import com.made.calvintd.moviecatalogue.model.TvShowModel;
+import com.made.calvintd.moviecatalogue.restapi.ApiInterface;
 import com.made.calvintd.moviecatalogue.view.TvShowView;
 
 import java.util.ArrayList;
 
 public class TvShowPresenter {
     private TvShowView view;
+    private ApiInterface apiInterface;
 
     public TvShowPresenter(TvShowView view) {
         this.view = view;

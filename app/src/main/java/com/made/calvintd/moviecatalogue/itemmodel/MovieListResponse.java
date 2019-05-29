@@ -64,7 +64,7 @@ public class MovieListResponse {
         this.totalResults = totalResults;
     }
 
-    private class Results {
+    public class Results {
         @SerializedName("poster_path")
         private String posterPath;
         @SerializedName("adult")
