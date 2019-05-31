@@ -34,6 +34,7 @@ public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.TvShowView
 
     public TvShowAdapter(Context context) {
         this.context = context;
+        this.notifyDataSetChanged();
     }
 
     @NonNull
@@ -48,14 +49,23 @@ public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.TvShowView
         TvShow tvShow = getListTvShow().get(i);
         final Resources resources = context.getResources();
 
-        Glide.with(context)
-                .load(tvShow.getPosterPath())
-                .into(tvShowViewHolder.imgPoster);
+        if(tvShow.getPosterPath() != null) {
+            Glide.with(context)
+                    .load(tvShow.getPosterPath())
+                    .centerCrop()
+                    .thumbnail(0.5f)
+                    .placeholder(R.drawable.ic_photo_black_48dp)
+                    .error(R.drawable.ic_error_black_48dp)
+                    .into(tvShowViewHolder.imgPoster);
+        } else {
+            Glide.with(context)
+                    .load(R.drawable.ic_photo_black_48dp)
+                    .into(tvShowViewHolder.imgPoster);
+        }
         tvShowViewHolder.tvName.setText(tvShow.getName());
         tvShowViewHolder.tvFirstAirDate.setText(tvShow.getFirstAirDate());
-        tvShowViewHolder.tvEpisodesSeasons.setText(resources.getQuantityString(R.plurals.tv_tvshow_episodes, tvShow.getNumberOfEpisodes()) + " " +
-                resources.getQuantityString(R.plurals.tv_tvshow_seasons, tvShow.getNumberOfSeasons()));
-        tvShowViewHolder.tvScore.setText(tvShow.getVoteAverage() + " " + resources.getQuantityString(R.plurals.tv_score, tvShow.getVoteCount()));
+        tvShowViewHolder.tvScore.setText(tvShow.getVoteAverage() +  " " + resources.getQuantityString(R.plurals.tv_score, tvShow.getVoteCount(),
+                tvShow.getVoteCount()));
     }
 
     @Override
@@ -67,7 +77,6 @@ public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.TvShowView
         @BindView(R.id.img_tvshow_item_poster) ImageView imgPoster;
         @BindView(R.id.tv_tvshow_item_name) TextView tvName;
         @BindView(R.id.tv_tvshow_item_first_air_date) TextView tvFirstAirDate;
-        @BindView(R.id.tv_tvshow_item_episodes_seasons) TextView tvEpisodesSeasons;
         @BindView(R.id.tv_tvshow_item_score) TextView tvScore;
 
         TvShowViewHolder(@NonNull View itemView) {

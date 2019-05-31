@@ -17,7 +17,6 @@
             android:layout_height="270dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:scaleType="fitXY"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_movie_detail_title" />
 
@@ -66,35 +65,6 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_movie_detail_release_date_id" />
 
         <TextView
-            android:id="@+id/tv_movie_detail_runtime_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:text="@string/tv_movie_details_runtime_placeholder"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/img_movie_detail_poster"
-            app:layout_constraintTop_toBottomOf="@+id/tv_movie_detail_release_date" />
-
-        <TextView
-            android:id="@+id/tv_movie_detail_runtime"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:text="@string/tv_movie_runtime_placeholder"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/img_movie_detail_poster"
-            app:layout_constraintTop_toBottomOf="@+id/tv_movie_detail_runtime_id" />
-
-        <TextView
             android:id="@+id/tv_movie_detail_score_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -107,7 +77,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/img_movie_detail_poster"
-            app:layout_constraintTop_toBottomOf="@+id/tv_movie_detail_runtime" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_movie_detail_release_date" />
 
         <TextView
             android:id="@+id/tv_movie_detail_score"

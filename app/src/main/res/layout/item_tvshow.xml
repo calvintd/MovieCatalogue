@@ -7,25 +7,27 @@
 
     <ImageView
         android:id="@+id/img_tvshow_item_poster"
-        android:layout_width="80dp"
-        android:layout_height="120dp"
+        android:layout_width="100dp"
+        android:layout_height="150dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_tvshow_item_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:text="@string/tv_tvshow_name_placeholder"
         android:textSize="20sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/img_tvshow_item_poster"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,21 +37,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
         android:text="@string/tv_tvshow_first_air_date_placeholder"
         android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/img_tvshow_item_poster"
         app:layout_constraintTop_toBottomOf="@+id/tv_tvshow_item_name" />
-
-    <TextView
-        android:id="@+id/tv_tvshow_item_episodes_seasons"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/tv_tvshow_episodes_seasons_placeholder"
-        android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/img_tvshow_item_poster"
-        app:layout_constraintTop_toBottomOf="@+id/tv_tvshow_item_first_air_date" />
 
     <TextView
         android:id="@+id/tv_tvshow_item_score"
@@ -57,8 +51,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="@string/tv_score_placeholder"
+        android:layout_marginEnd="16dp"
+        android:text="@string/tv_details_score_placeholder"
         android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/img_tvshow_item_poster"
-        app:layout_constraintTop_toBottomOf="@+id/tv_tvshow_item_episodes_seasons" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_tvshow_item_first_air_date" />
 </android.support.constraint.ConstraintLayout>

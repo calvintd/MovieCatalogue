@@ -8,17 +8,15 @@ public class Movie implements Parcelable {
     private String overview;
     private String posterPath;
     private String releaseDate;
-    private int runtime;
     private String title;
     private double voteAverage;
     private int voteCount;
 
-    public Movie(int id, String overview, String posterPath, String releaseDate, int runtime, String title, double voteAverage, int voteCount) {
+    public Movie(int id, String overview, String posterPath, String releaseDate, String title, double voteAverage, int voteCount) {
         this.id = id;
         this.overview = overview;
         this.posterPath = posterPath;
         this.releaseDate = releaseDate;
-        this.runtime = runtime;
         this.title = title;
         this.voteAverage = voteAverage;
         this.voteCount = voteCount;
@@ -54,14 +52,6 @@ public class Movie implements Parcelable {
 
     public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
-    }
-
-    public int getRuntime() {
-        return runtime;
-    }
-
-    public void setRuntime(int runtime) {
-        this.runtime = runtime;
     }
 
     public String getTitle() {
@@ -100,7 +90,6 @@ public class Movie implements Parcelable {
         dest.writeString(this.overview);
         dest.writeString(this.posterPath);
         dest.writeString(this.releaseDate);
-        dest.writeInt(this.runtime);
         dest.writeString(this.title);
         dest.writeDouble(this.voteAverage);
         dest.writeInt(this.voteCount);
@@ -111,7 +100,6 @@ public class Movie implements Parcelable {
         this.overview = in.readString();
         this.posterPath = in.readString();
         this.releaseDate = in.readString();
-        this.runtime = in.readInt();
         this.title = in.readString();
         this.voteAverage = in.readDouble();
         this.voteCount = in.readInt();

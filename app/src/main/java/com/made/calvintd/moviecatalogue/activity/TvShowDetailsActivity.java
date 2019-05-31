@@ -14,20 +14,18 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.made.calvintd.moviecatalogue.R;
 import com.made.calvintd.moviecatalogue.fragment.LanguageFragment;
-import com.made.calvintd.moviecatalogue.itemmodel.Movie;
+import com.made.calvintd.moviecatalogue.itemmodel.TvShow;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class TvShowDetailsActivity extends AppCompatActivity {
     public static final String EXTRA_TVSHOW = "extra_tvshow";
-    @BindView(R.id.img_detail_poster) ImageView imgPoster;
-    @BindView(R.id.tv_detail_title) TextView tvTitle;
-    @BindView(R.id.tv_detail_category) TextView tvCategory;
-    @BindView(R.id.tv_detail_figure_id) TextView tvFigureId;
-    @BindView(R.id.tv_detail_figure) TextView tvFigure;
-    @BindView(R.id.tv_detail_year) TextView tvYear;
-    @BindView(R.id.tv_detail_description) TextView tvDescription;
+    @BindView(R.id.img_tvshow_detail_poster) ImageView imgPoster;
+    @BindView(R.id.tv_tvshow_detail_name) TextView tvName;
+    @BindView(R.id.tv_tvshow_detail_first_air_date) TextView tvFirstAirDate;
+    @BindView(R.id.tv_tvshow_detail_score) TextView tvScore;
+    @BindView(R.id.tv_tvshow_detail_overview) TextView tvOverview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,27 +34,29 @@ public class TvShowDetailsActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+        final Resources resources = this.getResources();
+
         if(getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(getResources().getString(R.string.detail_activity_title));
+            getSupportActionBar().setTitle(getResources().getString(R.string.details_activity_title));
         }
 
-        Movie movie = getIntent().getParcelableExtra(EXTRA_MOVIE);
+        TvShow tvShow = getIntent().getParcelableExtra(EXTRA_TVSHOW);
 
-        Glide.with(this).load(movie.getPoster()).into(imgPoster);
-        tvTitle.setText(movie.getTitle());
-        switch (movie.getCategory()) {
-            case 1:
-                tvCategory.setText(getResources().getString(R.string.detail_category_movie));
-                tvFigureId.setText(getResources().getString(R.string.detail_figure_director));
-                break;
-            case 2:
-                tvCategory.setText(getResources().getString(R.string.detail_category_tv_show));
-                tvFigureId.setText(getResources().getString(R.string.detail_figure_creator));
-                break;
+        if(tvShow.getPosterPath() != null) {
+            Glide.with(this)
+                    .load(tvShow.getPosterPath())
+                    .centerCrop()
+                    .placeholder(R.drawable.ic_photo_black_48dp)
+                    .error(R.drawable.ic_error_black_48dp)
+                    .into(imgPoster);
+        } else {
+            Glide.with(this)
+                    .load(R.drawable.ic_photo_black_48dp)
+                    .into(imgPoster);
         }
-        tvFigure.setText(movie.getFigure());
-        tvYear.setText(movie.getYear());
-        tvDescription.setText(movie.getDescription());
+        tvName.setText(tvShow.getName());
+        tvScore.setText(tvShow.getVoteAverage() + resources.getQuantityString(R.plurals.tv_score, tvShow.getVoteCount(), tvShow.getVoteCount()));
+        tvOverview.setText(tvShow.getOverview());
     }
 
     @Override

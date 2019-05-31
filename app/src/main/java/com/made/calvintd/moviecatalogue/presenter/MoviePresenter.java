@@ -3,10 +3,12 @@ package com.made.calvintd.moviecatalogue.presenter;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.widget.Toast;
 
+import com.made.calvintd.moviecatalogue.R;
 import com.made.calvintd.moviecatalogue.adapter.MovieAdapter;
 import com.made.calvintd.moviecatalogue.itemmodel.Movie;
-import com.made.calvintd.moviecatalogue.itemmodel.MovieDetailsResponse;
 import com.made.calvintd.moviecatalogue.itemmodel.MovieListResponse;
 import com.made.calvintd.moviecatalogue.model.MovieModel;
 import com.made.calvintd.moviecatalogue.restapi.ApiInterface;
@@ -22,64 +24,55 @@ import retrofit2.Response;
 
 public class MoviePresenter {
     private MovieView view;
-    private ApiInterface apiInterface;
 
     public MoviePresenter(MovieView view) {
         this.view = view;
     }
 
-    public void initMovies(final Context context, final ArrayList<Movie> movies, RecyclerView rv) {
-        apiInterface = RetrofitInstance.getRetrofitInstance().create(ApiInterface.class);
-        Call<MovieListResponse> call = apiInterface.getNowPlayingMoviesList();
+    public void initMovies(final Context context, final ArrayList<Movie> movies, final RecyclerView recyclerView) {
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
-        rv.setHasFixedSize(true);
-        rv.setLayoutManager(new LinearLayoutManager(context));
+        ApiInterface apiInterface = RetrofitInstance.getRetrofitInstance().create(ApiInterface.class);
+        Call<MovieListResponse> call = apiInterface.getNowPlayingMoviesList();
 
         call.enqueue(new Callback<MovieListResponse>() {
             @Override
             public void onResponse(Call<MovieListResponse> call, Response<MovieListResponse> response) {
-                MovieListResponse movieListResponses = response.body();
-                final ArrayList<MovieDetailsResponse> movieDetailsResponses = new ArrayList<>();
+                MovieListResponse movieListResponse = response.body();
 
-                assert movieListResponses != null;
-                List<MovieListResponse.Results> results = movieListResponses.getResults();
+                try {
+                    if (movieListResponse != null) {
+                        List<MovieListResponse.Results> results = movieListResponse.getResults();
 
-                ArrayList<Integer> resultsId = new ArrayList<>();
-                for(MovieListResponse.Results result: results) {
-                    resultsId.add(result.getId());
-                }
-
-                for(Integer id: resultsId) {
-                    Call<MovieDetailsResponse> callDetails = apiInterface.getMovieDetails(id);
-
-                    callDetails.enqueue(new Callback<MovieDetailsResponse>() {
-                        @Override
-                        public void onResponse(Call<MovieDetailsResponse> call, Response<MovieDetailsResponse> response) {
-                            movieDetailsResponses.add(response.body());
+                        for (MovieListResponse.Results result : results) {
+                            if (result.getPosterPath() != null) {
+                                movies.add(new Movie(result.getId(), result.getOverview(), "https://image.tmdb.org/t/p/w185" +
+                                        result.getPosterPath(), result.getReleaseDate(), result.getTitle(), result.getVoteAverage(),
+                                        result.getVoteCount()));
+                            } else {
+                                movies.add(new Movie(result.getId(), result.getOverview(), null, result.getReleaseDate(),
+                                        result.getTitle(), result.getVoteAverage(), result.getVoteCount()));
+                            }
                         }
 
-                        @Override
-                        public void onFailure(Call<MovieDetailsResponse> call, Throwable t) {
-
-                        }
-                    });
-                }
-
-                for(MovieDetailsResponse mdr: movieDetailsResponses) {
-                    movies.add(new Movie(mdr.getId(), mdr.getOverview(), mdr.getPosterPath(), mdr.getReleaseDate(), mdr.getRuntime(),
-                            mdr.getTitle(), mdr.getVoteAverage(), mdr.getVoteCount()));
+                        MovieAdapter movieAdapter = new MovieAdapter(context);
+                        movieAdapter.setListMovies(movies);
+                        MovieModel model = new MovieModel(movieAdapter);
+                        view.showMovies(model);
+                    }
+                } finally {
+                    if(movieListResponse != null) {
+                        movieListResponse.toString();
+                    }
                 }
             }
 
             @Override
             public void onFailure(Call<MovieListResponse> call, Throwable t) {
-
+                Log.d("APIFailure", t.getCause().toString());
+                Toast.makeText(context, context.getResources().getString(R.string.api_data_failure), Toast.LENGTH_SHORT).show();
             }
         });
-
-        MovieAdapter movieAdapter = new MovieAdapter(context);
-        movieAdapter.setListMovies(movies);
-        MovieModel model = new MovieModel(movieAdapter);
-        view.showMovies(model);
     }
 }

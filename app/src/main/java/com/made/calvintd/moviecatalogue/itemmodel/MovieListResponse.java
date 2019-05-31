@@ -10,13 +10,13 @@ public class MovieListResponse {
     @SerializedName("results")
     private List<Results> results;
     @SerializedName("dates")
-    private List<Dates> dates;
+    private Dates dates;
     @SerializedName("total_pages")
     private int totalPages;
     @SerializedName("total_results")
     private int totalResults;
 
-    public MovieListResponse(int page, List<Results> results, List<Dates> dates, int totalPages, int totalResults) {
+    public MovieListResponse(int page, List<Results> results, Dates dates, int totalPages, int totalResults) {
         this.page = page;
         this.results = results;
         this.dates = dates;
@@ -40,11 +40,11 @@ public class MovieListResponse {
         this.results = results;
     }
 
-    public List<Dates> getDates() {
+    public Dates getDates() {
         return dates;
     }
 
-    public void setDates(List<Dates> dates) {
+    public void setDates(Dates dates) {
         this.dates = dates;
     }
 

@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.made.calvintd.moviecatalogue.activity.MovieDetailsActivity;
 import com.made.calvintd.moviecatalogue.model.MovieModel;
@@ -26,7 +27,8 @@ import butterknife.ButterKnife;
  * A simple {@link Fragment} subclass.
  */
 public class MovieFragment extends Fragment implements MovieView {
-    @BindView(R.id.rv_movies) RecyclerView rvMovies;
+    @BindView(R.id.pb_movies) ProgressBar progressBar;
+    @BindView(R.id.rv_movies) RecyclerView recyclerView;
     private ArrayList<Movie> movies = new ArrayList<>();
     private final MoviePresenter presenter = new MoviePresenter(this);
 
@@ -42,9 +44,11 @@ public class MovieFragment extends Fragment implements MovieView {
 
         ButterKnife.bind(this, view);
 
-        presenter.initMovies(getActivity(), movies, rvMovies); //1 = movies
+        recyclerView.setVisibility(View.INVISIBLE);
 
-        ItemClickSupport.addTo(rvMovies).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+        presenter.initMovies(this.getContext(), movies, recyclerView);
+
+        ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                 showDetails(movies.get(position));
@@ -62,6 +66,8 @@ public class MovieFragment extends Fragment implements MovieView {
 
     @Override
     public void showMovies(MovieModel model) {
-        rvMovies.setAdapter(model.getMovieAdapter());
+        recyclerView.setAdapter(model.getMovieAdapter());
+        progressBar.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.VISIBLE);
     }
 }

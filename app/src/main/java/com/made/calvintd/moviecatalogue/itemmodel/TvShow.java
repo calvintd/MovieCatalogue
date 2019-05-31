@@ -4,36 +4,29 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class TvShow implements Parcelable {
-    private int firstAirDate;
+    private String firstAirDate;
     private int id;
-    private int lastAirDate;
-    private int name;
-    private int numberOfEpisodes;
-    private int numberOfSeasons;
-    private int overview;
+    private String name;
+    private String overview;
     private String posterPath;
-    private int voteAverage;
+    private double voteAverage;
     private int voteCount;
 
-    public TvShow(int firstAirDate, int id, int lastAirDate, int name, int numberOfEpisodes, int numberOfSeasons, int overview, String posterPath,
-                  int voteAverage, int voteCount) {
+    public TvShow(String firstAirDate, int id, String name,  String overview, String posterPath, double voteAverage, int voteCount) {
         this.firstAirDate = firstAirDate;
         this.id = id;
-        this.lastAirDate = lastAirDate;
         this.name = name;
-        this.numberOfEpisodes = numberOfEpisodes;
-        this.numberOfSeasons = numberOfSeasons;
         this.overview = overview;
         this.posterPath = posterPath;
         this.voteAverage = voteAverage;
         this.voteCount = voteCount;
     }
 
-    public int getFirstAirDate() {
+    public String getFirstAirDate() {
         return firstAirDate;
     }
 
-    public void setFirstAirDate(int firstAirDate) {
+    public void setFirstAirDate(String firstAirDate) {
         this.firstAirDate = firstAirDate;
     }
 
@@ -45,43 +38,19 @@ public class TvShow implements Parcelable {
         this.id = id;
     }
 
-    public int getLastAirDate() {
-        return lastAirDate;
-    }
-
-    public void setLastAirDate(int lastAirDate) {
-        this.lastAirDate = lastAirDate;
-    }
-
-    public int getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(int name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public int getNumberOfEpisodes() {
-        return numberOfEpisodes;
-    }
-
-    public void setNumberOfEpisodes(int numberOfEpisodes) {
-        this.numberOfEpisodes = numberOfEpisodes;
-    }
-
-    public int getNumberOfSeasons() {
-        return numberOfSeasons;
-    }
-
-    public void setNumberOfSeasons(int numberOfSeasons) {
-        this.numberOfSeasons = numberOfSeasons;
-    }
-
-    public int getOverview() {
+    public String getOverview() {
         return overview;
     }
 
-    public void setOverview(int overview) {
+    public void setOverview(String overview) {
         this.overview = overview;
     }
 
@@ -93,11 +62,11 @@ public class TvShow implements Parcelable {
         this.posterPath = posterPath;
     }
 
-    public int getVoteAverage() {
+    public double getVoteAverage() {
         return voteAverage;
     }
 
-    public void setVoteAverage(int voteAverage) {
+    public void setVoteAverage(double voteAverage) {
         this.voteAverage = voteAverage;
     }
 
@@ -117,28 +86,22 @@ public class TvShow implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.firstAirDate);
+        dest.writeString(this.firstAirDate);
         dest.writeInt(this.id);
-        dest.writeInt(this.lastAirDate);
-        dest.writeInt(this.name);
-        dest.writeInt(this.numberOfEpisodes);
-        dest.writeInt(this.numberOfSeasons);
-        dest.writeInt(this.overview);
+        dest.writeString(this.name);
+        dest.writeString(this.overview);
         dest.writeString(this.posterPath);
-        dest.writeInt(this.voteAverage);
+        dest.writeDouble(this.voteAverage);
         dest.writeInt(this.voteCount);
     }
 
     protected TvShow(Parcel in) {
-        this.firstAirDate = in.readInt();
+        this.firstAirDate = in.readString();
         this.id = in.readInt();
-        this.lastAirDate = in.readInt();
-        this.name = in.readInt();
-        this.numberOfEpisodes = in.readInt();
-        this.numberOfSeasons = in.readInt();
-        this.overview = in.readInt();
+        this.name = in.readString();
+        this.overview = in.readString();
         this.posterPath = in.readString();
-        this.voteAverage = in.readInt();
+        this.voteAverage = in.readDouble();
         this.voteCount = in.readInt();
     }
 

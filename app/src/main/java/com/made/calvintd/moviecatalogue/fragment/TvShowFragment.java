@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.made.calvintd.moviecatalogue.activity.TvShowDetailsActivity;
 import com.made.calvintd.moviecatalogue.itemmodel.TvShow;
@@ -26,7 +27,8 @@ import butterknife.ButterKnife;
  * A simple {@link Fragment} subclass.
  */
 public class TvShowFragment extends Fragment implements TvShowView {
-    @BindView(R.id.rv_tvshows) RecyclerView rvTvShows;
+    @BindView(R.id.pb_tvshows) ProgressBar progressBar;
+    @BindView(R.id.rv_tvshows) RecyclerView recyclerView;
     private ArrayList<TvShow> tvShows = new ArrayList<>();
     private final TvShowPresenter presenter = new TvShowPresenter(this);
 
@@ -42,9 +44,11 @@ public class TvShowFragment extends Fragment implements TvShowView {
 
         ButterKnife.bind(this, view);
 
-        presenter.initMovies(getActivity(), tvShows, rvTvShows); //2 = TV shows
+        recyclerView.setVisibility(View.INVISIBLE);
 
-        ItemClickSupport.addTo(rvTvShows).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+        presenter.initMovies(getActivity(), tvShows, recyclerView);
+
+        ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                 showDetails(tvShows.get(position));
@@ -62,6 +66,8 @@ public class TvShowFragment extends Fragment implements TvShowView {
 
     @Override
     public void showTvShows(TvShowModel model) {
-        rvTvShows.setAdapter(model.getTvShowAdapter());
+        recyclerView.setAdapter(model.getTvShowAdapter());
+        progressBar.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.VISIBLE);
     }
 }

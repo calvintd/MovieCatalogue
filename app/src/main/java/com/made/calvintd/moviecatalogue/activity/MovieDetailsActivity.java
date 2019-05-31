@@ -21,13 +21,11 @@ import butterknife.ButterKnife;
 
 public class MovieDetailsActivity extends AppCompatActivity {
     public static final String EXTRA_MOVIE = "extra_movie";
-    @BindView(R.id.img_detail_poster) ImageView imgPoster;
-    @BindView(R.id.tv_detail_title) TextView tvTitle;
-    @BindView(R.id.tv_detail_category) TextView tvCategory;
-    @BindView(R.id.tv_detail_figure_id) TextView tvFigureId;
-    @BindView(R.id.tv_detail_figure) TextView tvFigure;
-    @BindView(R.id.tv_detail_year) TextView tvYear;
-    @BindView(R.id.tv_detail_description) TextView tvDescription;
+    @BindView(R.id.img_movie_detail_poster) ImageView imgPoster;
+    @BindView(R.id.tv_movie_detail_title) TextView tvTitle;
+    @BindView(R.id.tv_movie_detail_release_date) TextView tvReleaseDate;
+    @BindView(R.id.tv_movie_detail_score) TextView tvScore;
+    @BindView(R.id.tv_movie_detail_overview) TextView tvOverview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,27 +34,30 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+        final Resources resources = this.getResources();
+
         if(getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(getResources().getString(R.string.detail_activity_title));
+            getSupportActionBar().setTitle(getResources().getString(R.string.details_activity_title));
         }
 
         Movie movie = getIntent().getParcelableExtra(EXTRA_MOVIE);
 
-        Glide.with(this).load(movie.getPoster()).into(imgPoster);
-        tvTitle.setText(movie.getTitle());
-        switch (movie.getCategory()) {
-            case 1:
-                tvCategory.setText(getResources().getString(R.string.detail_category_movie));
-                tvFigureId.setText(getResources().getString(R.string.detail_figure_director));
-                break;
-            case 2:
-                tvCategory.setText(getResources().getString(R.string.detail_category_tv_show));
-                tvFigureId.setText(getResources().getString(R.string.detail_figure_creator));
-                break;
+        if(movie.getPosterPath() != null) {
+            Glide.with(this)
+                    .load(movie.getPosterPath())
+                    .centerCrop()
+                    .placeholder(R.drawable.ic_photo_black_48dp)
+                    .error(R.drawable.ic_error_black_48dp)
+                    .into(imgPoster);
+        } else {
+            Glide.with(this)
+                    .load(R.drawable.ic_photo_black_48dp)
+                    .into(imgPoster);
         }
-        tvFigure.setText(movie.getFigure());
-        tvYear.setText(movie.getYear());
-        tvDescription.setText(movie.getDescription());
+        tvTitle.setText(movie.getTitle());
+        tvReleaseDate.setText(movie.getReleaseDate());
+        tvScore.setText(movie.getVoteAverage() + " " + resources.getQuantityString(R.plurals.tv_score, movie.getVoteCount(), movie.getVoteCount()));
+        tvOverview.setText(movie.getOverview());
     }
 
     @Override

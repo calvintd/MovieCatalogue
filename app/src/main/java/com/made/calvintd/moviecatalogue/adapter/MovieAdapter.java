@@ -34,6 +34,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     public MovieAdapter (Context context) {
         this.context = context;
+        this.notifyDataSetChanged();
     }
 
     @NonNull
@@ -48,13 +49,23 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         Movie movie = getListMovies().get(i);
         final Resources resources = context.getResources();
 
-        Glide.with(context)
-                .load(movie.getPosterPath())
-                .into(movieViewHolder.imgPoster);
+        if(movie.getPosterPath() != null) {
+            Glide.with(context)
+                    .load(movie.getPosterPath())
+                    .centerCrop()
+                    .thumbnail(0.5f)
+                    .placeholder(R.drawable.ic_photo_black_48dp)
+                    .error(R.drawable.ic_error_black_48dp)
+                    .into(movieViewHolder.imgPoster);
+        } else {
+            Glide.with(context)
+                    .load(R.drawable.ic_photo_black_48dp)
+                    .into(movieViewHolder.imgPoster);
+        }
         movieViewHolder.tvTitle.setText(movie.getTitle());
         movieViewHolder.tvReleaseDate.setText(movie.getReleaseDate());
-        movieViewHolder.tvRuntime.setText(movie.getRuntime());
-        movieViewHolder.tvScore.setText(movie.getVoteAverage() + " " + resources.getQuantityString(R.plurals.tv_score, movie.getVoteCount()));
+        movieViewHolder.tvScore.setText(movie.getVoteAverage() + " " + resources.getQuantityString(R.plurals.tv_score, movie.getVoteCount(),
+                movie.getVoteCount()));
     }
 
     @Override
@@ -66,7 +77,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         @BindView(R.id.img_movie_item_poster) ImageView imgPoster;
         @BindView(R.id.tv_movie_item_title) TextView tvTitle;
         @BindView(R.id.tv_movie_item_release_date) TextView tvReleaseDate;
-        @BindView(R.id.tv_movie_item_runtime) TextView tvRuntime;
         @BindView(R.id.tv_movie_item_score) TextView tvScore;
 
         MovieViewHolder(@NonNull View itemView) {
