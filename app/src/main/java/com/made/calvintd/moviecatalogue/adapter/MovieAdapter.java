@@ -30,11 +30,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     public void setListMovies(ArrayList<Movie> listMovies) {
         this.listMovies = listMovies;
+        notifyDataSetChanged();
     }
 
     public MovieAdapter (Context context) {
         this.context = context;
-        this.notifyDataSetChanged();
     }
 
     @NonNull
@@ -49,7 +49,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         Movie movie = getListMovies().get(i);
         final Resources resources = context.getResources();
 
-        if(movie.getPosterPath() != null) {
+        if (movie.getPosterPath() != null) {
             Glide.with(context)
                     .load(movie.getPosterPath())
                     .centerCrop()

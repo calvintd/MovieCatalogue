@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,7 +47,7 @@ public class TvShowFragment extends Fragment implements TvShowView {
 
         recyclerView.setVisibility(View.INVISIBLE);
 
-        presenter.initMovies(getActivity(), tvShows, recyclerView);
+        presenter.initMovies(this.getContext(), tvShows);
 
         ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
@@ -69,5 +70,7 @@ public class TvShowFragment extends Fragment implements TvShowView {
         recyclerView.setAdapter(model.getTvShowAdapter());
         progressBar.setVisibility(View.GONE);
         recyclerView.setVisibility(View.VISIBLE);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
     }
 }

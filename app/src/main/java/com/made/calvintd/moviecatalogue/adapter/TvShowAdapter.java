@@ -30,11 +30,11 @@ public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.TvShowView
 
     public void setListTvShow(ArrayList<TvShow> listTvShow) {
         this.listTvShow = listTvShow;
+        notifyDataSetChanged();
     }
 
     public TvShowAdapter(Context context) {
         this.context = context;
-        this.notifyDataSetChanged();
     }
 
     @NonNull
@@ -49,7 +49,7 @@ public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.TvShowView
         TvShow tvShow = getListTvShow().get(i);
         final Resources resources = context.getResources();
 
-        if(tvShow.getPosterPath() != null) {
+        if (tvShow.getPosterPath() != null) {
             Glide.with(context)
                     .load(tvShow.getPosterPath())
                     .centerCrop()

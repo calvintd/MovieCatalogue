@@ -1,8 +1,6 @@
 package com.made.calvintd.moviecatalogue.presenter;
 
 import android.content.Context;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -29,42 +27,48 @@ public class TvShowPresenter {
         this.view = view;
     }
 
-    public void initMovies(final Context context, final ArrayList<TvShow> tvShows, RecyclerView recyclerView) {
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(context));
-
+    public void initMovies(final Context context, final ArrayList<TvShow> tvShows) {
         ApiInterface apiInterface = RetrofitInstance.getRetrofitInstance().create(ApiInterface.class);
         Call<TvShowListResponse> call = apiInterface.getAiringTodayTvShowsList();
 
         call.enqueue(new Callback<TvShowListResponse>() {
             @Override
             public void onResponse(Call<TvShowListResponse> call, Response<TvShowListResponse> response) {
-                TvShowListResponse tvShowListResponse = response.body();
+                if (response.isSuccessful()) {
 
-                try {
-                    if (tvShowListResponse != null) {
-                        List<TvShowListResponse.Results> results = tvShowListResponse.getResults();
+                    TvShowListResponse tvShowListResponse = response.body();
 
-                        for (TvShowListResponse.Results result : results) {
-                            if(result.getPosterPath() != null) {
-                                tvShows.add(new TvShow(result.getFirstAirDate(), result.getId(), result.getName(), result.getOverview(),
-                                        "https://image.tmdb.org/t/p/w185" + result.getPosterPath(), result.getVoteAverage(),
-                                        result.getVoteCount()));
-                            } else {
-                                tvShows.add(new TvShow(result.getFirstAirDate(), result.getId(), result.getName(), result.getOverview(),
-                                        null, result.getVoteAverage(), result.getVoteCount()));
+                    try {
+                        if (tvShowListResponse != null) {
+                            List<TvShowListResponse.Results> results = tvShowListResponse.getResults();
+
+                            for (TvShowListResponse.Results result : results) {
+                                if (result.getPosterPath() != null) {
+                                    tvShows.add(new TvShow(result.getFirstAirDate(), result.getId(), result.getName(), result.getOverview(),
+                                            "https://image.tmdb.org/t/p/w185" + result.getPosterPath(), result.getVoteAverage(),
+                                            result.getVoteCount()));
+                                } else {
+                                    tvShows.add(new TvShow(result.getFirstAirDate(), result.getId(), result.getName(), result.getOverview(),
+                                            null, result.getVoteAverage(), result.getVoteCount()));
+                                }
                             }
-                        }
 
-                        TvShowAdapter tvShowAdapter = new TvShowAdapter(context);
-                        tvShowAdapter.setListTvShow(tvShows);
-                        TvShowModel model = new TvShowModel(tvShowAdapter);
-                        view.showTvShows(model);
+                            TvShowAdapter tvShowAdapter = new TvShowAdapter(context);
+                            tvShowAdapter.setListTvShow(tvShows);
+                            tvShowAdapter.notifyDataSetChanged();
+                            TvShowModel model = new TvShowModel(tvShowAdapter);
+                            view.showTvShows(model);
+                        }
+                    } finally {
+                        if (tvShowListResponse != null) {
+                            tvShowListResponse.toString();
+                        }
                     }
-                } finally {
-                    if(tvShowListResponse != null) {
-                        tvShowListResponse.toString();
+                } else {
+                    if (response.errorBody() != null) {
+                        Log.d("APIFailure", response.errorBody().toString());
                     }
+                    Toast.makeText(context, context.getResources().getString(R.string.api_data_failure), Toast.LENGTH_SHORT).show();
                 }
             }
 

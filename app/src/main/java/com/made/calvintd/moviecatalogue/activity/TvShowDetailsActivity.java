@@ -2,9 +2,11 @@ package com.made.calvintd.moviecatalogue.activity;
 
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.os.Build;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Layout;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -57,6 +59,9 @@ public class TvShowDetailsActivity extends AppCompatActivity {
         tvName.setText(tvShow.getName());
         tvScore.setText(tvShow.getVoteAverage() + resources.getQuantityString(R.plurals.tv_score, tvShow.getVoteCount(), tvShow.getVoteCount()));
         tvOverview.setText(tvShow.getOverview());
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            tvOverview.setJustificationMode(Layout.JUSTIFICATION_MODE_INTER_WORD);
+        }
     }
 
     @Override

@@ -1,8 +1,6 @@
 package com.made.calvintd.moviecatalogue.presenter;
 
 import android.content.Context;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -29,42 +27,47 @@ public class MoviePresenter {
         this.view = view;
     }
 
-    public void initMovies(final Context context, final ArrayList<Movie> movies, final RecyclerView recyclerView) {
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(context));
-
+    public void initMovies(final Context context, final ArrayList<Movie> movies) {
         ApiInterface apiInterface = RetrofitInstance.getRetrofitInstance().create(ApiInterface.class);
         Call<MovieListResponse> call = apiInterface.getNowPlayingMoviesList();
 
         call.enqueue(new Callback<MovieListResponse>() {
             @Override
             public void onResponse(Call<MovieListResponse> call, Response<MovieListResponse> response) {
-                MovieListResponse movieListResponse = response.body();
+                if (response.isSuccessful()) {
+                    MovieListResponse movieListResponse = response.body();
 
-                try {
-                    if (movieListResponse != null) {
-                        List<MovieListResponse.Results> results = movieListResponse.getResults();
+                    try {
+                        if (movieListResponse != null) {
+                            List<MovieListResponse.Results> results = movieListResponse.getResults();
 
-                        for (MovieListResponse.Results result : results) {
-                            if (result.getPosterPath() != null) {
-                                movies.add(new Movie(result.getId(), result.getOverview(), "https://image.tmdb.org/t/p/w185" +
-                                        result.getPosterPath(), result.getReleaseDate(), result.getTitle(), result.getVoteAverage(),
-                                        result.getVoteCount()));
-                            } else {
-                                movies.add(new Movie(result.getId(), result.getOverview(), null, result.getReleaseDate(),
-                                        result.getTitle(), result.getVoteAverage(), result.getVoteCount()));
+                            for (MovieListResponse.Results result : results) {
+                                if (result.getPosterPath() != null) {
+                                    movies.add(new Movie(result.getId(), result.getOverview(), "https://image.tmdb.org/t/p/w185" +
+                                            result.getPosterPath(), result.getReleaseDate(), result.getTitle(), result.getVoteAverage(),
+                                            result.getVoteCount()));
+                                } else {
+                                    movies.add(new Movie(result.getId(), result.getOverview(), null, result.getReleaseDate(),
+                                            result.getTitle(), result.getVoteAverage(), result.getVoteCount()));
+                                }
                             }
-                        }
 
-                        MovieAdapter movieAdapter = new MovieAdapter(context);
-                        movieAdapter.setListMovies(movies);
-                        MovieModel model = new MovieModel(movieAdapter);
-                        view.showMovies(model);
+                            MovieAdapter movieAdapter = new MovieAdapter(context);
+                            movieAdapter.setListMovies(movies);
+                            movieAdapter.notifyDataSetChanged();
+                            MovieModel model = new MovieModel(movieAdapter);
+                            view.showMovies(model);
+                        }
+                    } finally {
+                        if (movieListResponse != null) {
+                            movieListResponse.toString();
+                        }
                     }
-                } finally {
-                    if(movieListResponse != null) {
-                        movieListResponse.toString();
+                } else {
+                    if (response.errorBody() != null) {
+                        Log.d("APIFailure", response.errorBody().toString());
                     }
+                    Toast.makeText(context, context.getResources().getString(R.string.api_data_failure), Toast.LENGTH_SHORT).show();
                 }
             }
 

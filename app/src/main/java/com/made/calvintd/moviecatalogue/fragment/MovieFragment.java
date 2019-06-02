@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,7 +47,7 @@ public class MovieFragment extends Fragment implements MovieView {
 
         recyclerView.setVisibility(View.INVISIBLE);
 
-        presenter.initMovies(this.getContext(), movies, recyclerView);
+        presenter.initMovies(this.getContext(), movies);
 
         ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
@@ -69,5 +70,7 @@ public class MovieFragment extends Fragment implements MovieView {
         recyclerView.setAdapter(model.getMovieAdapter());
         progressBar.setVisibility(View.GONE);
         recyclerView.setVisibility(View.VISIBLE);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
     }
 }
