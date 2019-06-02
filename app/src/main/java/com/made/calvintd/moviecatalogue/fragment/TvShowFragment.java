@@ -1,5 +1,7 @@
 package com.made.calvintd.moviecatalogue.fragment;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,13 +13,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import com.made.calvintd.moviecatalogue.R;
 import com.made.calvintd.moviecatalogue.activity.TvShowDetailsActivity;
+import com.made.calvintd.moviecatalogue.adapter.TvShowAdapter;
 import com.made.calvintd.moviecatalogue.itemmodel.TvShow;
 import com.made.calvintd.moviecatalogue.model.TvShowModel;
 import com.made.calvintd.moviecatalogue.presenter.TvShowPresenter;
-import com.made.calvintd.moviecatalogue.R;
 import com.made.calvintd.moviecatalogue.recyclerviewsupport.ItemClickSupport;
 import com.made.calvintd.moviecatalogue.view.TvShowView;
+import com.made.calvintd.moviecatalogue.viewmodel.TvShowViewModel;
 
 import java.util.ArrayList;
 
@@ -30,8 +34,10 @@ import butterknife.ButterKnife;
 public class TvShowFragment extends Fragment implements TvShowView {
     @BindView(R.id.pb_tvshows) ProgressBar progressBar;
     @BindView(R.id.rv_tvshows) RecyclerView recyclerView;
+    TvShowPresenter tvShowPresenter = new TvShowPresenter(this);
     private ArrayList<TvShow> tvShows = new ArrayList<>();
-    private final TvShowPresenter presenter = new TvShowPresenter(this);
+    private TvShowAdapter adapter = new TvShowAdapter();
+    private TvShowViewModel tvShowViewModel;
 
     public TvShowFragment() {
         // Required empty public constructor
@@ -42,12 +48,19 @@ public class TvShowFragment extends Fragment implements TvShowView {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_tvshow, container, false);
-
         ButterKnife.bind(this, view);
 
         recyclerView.setVisibility(View.INVISIBLE);
 
-        presenter.initMovies(this.getContext(), tvShows);
+        tvShowViewModel = ViewModelProviders.of(this).get(TvShowViewModel.class);
+        tvShowViewModel.getTvShows().observe(this, getTvShowsObserver);
+
+        if (tvShowViewModel.getTvShows().getValue() == null) {
+            tvShowPresenter.getData(getActivity(), tvShows);
+        } else {
+            tvShows = tvShowViewModel.getTvShows().getValue();
+            adapter.notifyDataSetChanged();
+        }
 
         ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
@@ -59,6 +72,18 @@ public class TvShowFragment extends Fragment implements TvShowView {
         return view;
     }
 
+    private Observer<ArrayList<TvShow>> getTvShowsObserver = new Observer<ArrayList<TvShow>>() {
+        @Override
+        public void onChanged(ArrayList<TvShow> tvShows) {
+            adapter.setListTvShow(tvShows);
+            recyclerView.setAdapter(adapter);
+            progressBar.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        }
+    };
+
     private void showDetails(TvShow tvShow) {
         Intent intent = new Intent(getActivity(), TvShowDetailsActivity.class);
         intent.putExtra(TvShowDetailsActivity.EXTRA_TVSHOW, tvShow);
@@ -68,6 +93,10 @@ public class TvShowFragment extends Fragment implements TvShowView {
     @Override
     public void showTvShows(TvShowModel model) {
         recyclerView.setAdapter(model.getTvShowAdapter());
+        adapter = model.getTvShowAdapter();
+        adapter.notifyDataSetChanged();
+        tvShowViewModel.postMutableLiveData(tvShows);
+
         progressBar.setVisibility(View.GONE);
         recyclerView.setVisibility(View.VISIBLE);
         recyclerView.setHasFixedSize(true);

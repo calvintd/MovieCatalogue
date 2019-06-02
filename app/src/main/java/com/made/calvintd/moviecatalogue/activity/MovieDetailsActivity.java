@@ -18,6 +18,12 @@ import com.made.calvintd.moviecatalogue.fragment.LanguageFragment;
 import com.made.calvintd.moviecatalogue.itemmodel.Movie;
 import com.made.calvintd.moviecatalogue.R;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -36,7 +42,8 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        final Resources resources = this.getResources();
+        Resources resources = this.getResources();
+        Configuration configuration = resources.getConfiguration();
 
         if(getSupportActionBar() != null) {
             getSupportActionBar().setTitle(getResources().getString(R.string.details_activity_title));
@@ -56,9 +63,22 @@ public class MovieDetailsActivity extends AppCompatActivity {
                     .load(R.drawable.ic_photo_black_48dp)
                     .into(imgPoster);
         }
+
         tvTitle.setText(movie.getTitle());
-        tvReleaseDate.setText(movie.getReleaseDate());
+
+        Locale locale = configuration.locale;
+        DateFormat inputDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat outputDateFormat = DateFormat.getDateInstance(DateFormat.LONG, locale);
+        String inputDate = movie.getReleaseDate();
+        try {
+            Date parsedDate = inputDateFormat.parse(inputDate);
+            tvReleaseDate.setText(outputDateFormat.format(parsedDate));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         tvScore.setText(movie.getVoteAverage() + " " + resources.getQuantityString(R.plurals.tv_score, movie.getVoteCount(), movie.getVoteCount()));
+
         tvOverview.setText(movie.getOverview());
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             tvOverview.setJustificationMode(Layout.JUSTIFICATION_MODE_INTER_WORD);
@@ -79,12 +99,10 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.menu_language:
-                LanguageFragment languageFragment = new LanguageFragment();
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                languageFragment.show(fragmentManager, LanguageFragment.class.getSimpleName());
-                break;
+        if (item.getItemId() == R.id.menu_language) {
+            LanguageFragment mLanguageFragment = new LanguageFragment();
+            FragmentManager mFragmentManager = getSupportFragmentManager();
+            mLanguageFragment.show(mFragmentManager, LanguageFragment.class.getSimpleName());
         }
         return super.onOptionsItemSelected(item);
     }

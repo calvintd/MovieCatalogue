@@ -57,12 +57,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.menu_language:
-                LanguageFragment mLanguageFragment = new LanguageFragment();
-                FragmentManager mFragmentManager = getSupportFragmentManager();
-                mLanguageFragment.show(mFragmentManager, LanguageFragment.class.getSimpleName());
-                break;
+        if (item.getItemId() == R.id.menu_language) {
+            LanguageFragment mLanguageFragment = new LanguageFragment();
+            FragmentManager mFragmentManager = getSupportFragmentManager();
+            mLanguageFragment.show(mFragmentManager, LanguageFragment.class.getSimpleName());
         }
         return super.onOptionsItemSelected(item);
     }

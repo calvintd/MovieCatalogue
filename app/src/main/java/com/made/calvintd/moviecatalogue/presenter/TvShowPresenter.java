@@ -20,14 +20,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TvShowPresenter {
+public class TvShowPresenter{
     private TvShowView view;
 
     public TvShowPresenter(TvShowView view) {
         this.view = view;
     }
 
-    public void initMovies(final Context context, final ArrayList<TvShow> tvShows) {
+    public void getData(final Context context, final ArrayList<TvShow> tvShows) {
         ApiInterface apiInterface = RetrofitInstance.getRetrofitInstance().create(ApiInterface.class);
         Call<TvShowListResponse> call = apiInterface.getAiringTodayTvShowsList();
 
@@ -53,9 +53,8 @@ public class TvShowPresenter {
                                 }
                             }
 
-                            TvShowAdapter tvShowAdapter = new TvShowAdapter(context);
+                            TvShowAdapter tvShowAdapter = new TvShowAdapter();
                             tvShowAdapter.setListTvShow(tvShows);
-                            tvShowAdapter.notifyDataSetChanged();
                             TvShowModel model = new TvShowModel(tvShowAdapter);
                             view.showTvShows(model);
                         }

@@ -5,7 +5,6 @@ import com.made.calvintd.moviecatalogue.itemmodel.TvShowListResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
 
 public interface ApiInterface {
     @GET("/3/movie/now_playing")

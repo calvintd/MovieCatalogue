@@ -27,7 +27,7 @@ public class MoviePresenter {
         this.view = view;
     }
 
-    public void initMovies(final Context context, final ArrayList<Movie> movies) {
+    public void getData(final Context context, final ArrayList<Movie> movies) {
         ApiInterface apiInterface = RetrofitInstance.getRetrofitInstance().create(ApiInterface.class);
         Call<MovieListResponse> call = apiInterface.getNowPlayingMoviesList();
 
@@ -52,9 +52,8 @@ public class MoviePresenter {
                                 }
                             }
 
-                            MovieAdapter movieAdapter = new MovieAdapter(context);
+                            MovieAdapter movieAdapter = new MovieAdapter();
                             movieAdapter.setListMovies(movies);
-                            movieAdapter.notifyDataSetChanged();
                             MovieModel model = new MovieModel(movieAdapter);
                             view.showMovies(model);
                         }

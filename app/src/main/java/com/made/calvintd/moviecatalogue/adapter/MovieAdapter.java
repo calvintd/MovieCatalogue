@@ -1,7 +1,5 @@
 package com.made.calvintd.moviecatalogue.adapter;
 
-import android.content.Context;
-import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,27 +13,28 @@ import com.bumptech.glide.Glide;
 import com.made.calvintd.moviecatalogue.itemmodel.Movie;
 import com.made.calvintd.moviecatalogue.R;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
-    private Context context;
     private ArrayList<Movie> listMovies;
 
-    private ArrayList<Movie> getListMovies() {
+    public ArrayList<Movie> getListMovies() {
         return listMovies;
     }
 
     public void setListMovies(ArrayList<Movie> listMovies) {
         this.listMovies = listMovies;
-        notifyDataSetChanged();
     }
 
-    public MovieAdapter (Context context) {
-        this.context = context;
-    }
+    public MovieAdapter () {}
 
     @NonNull
     @Override
@@ -47,10 +46,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder movieViewHolder, int i) {
         Movie movie = getListMovies().get(i);
-        final Resources resources = context.getResources();
 
         if (movie.getPosterPath() != null) {
-            Glide.with(context)
+            Glide.with(movieViewHolder.imgPoster.getContext())
                     .load(movie.getPosterPath())
                     .centerCrop()
                     .thumbnail(0.5f)
@@ -58,14 +56,26 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
                     .error(R.drawable.ic_error_black_48dp)
                     .into(movieViewHolder.imgPoster);
         } else {
-            Glide.with(context)
+            Glide.with(movieViewHolder.imgPoster.getContext())
                     .load(R.drawable.ic_photo_black_48dp)
                     .into(movieViewHolder.imgPoster);
         }
+
         movieViewHolder.tvTitle.setText(movie.getTitle());
-        movieViewHolder.tvReleaseDate.setText(movie.getReleaseDate());
-        movieViewHolder.tvScore.setText(movie.getVoteAverage() + " " + resources.getQuantityString(R.plurals.tv_score, movie.getVoteCount(),
-                movie.getVoteCount()));
+
+        Locale locale = movieViewHolder.tvReleaseDate.getResources().getConfiguration().locale;
+        DateFormat inputDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat outputDateFormat = DateFormat.getDateInstance(DateFormat.LONG, locale);
+        String inputDateText = movie.getReleaseDate();
+        try {
+            Date parsedDate = inputDateFormat.parse(inputDateText);
+            movieViewHolder.tvReleaseDate.setText(outputDateFormat.format(parsedDate));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        movieViewHolder.tvScore.setText(movie.getVoteAverage() + " " + movieViewHolder.tvScore.getResources()
+                .getQuantityString(R.plurals.tv_score, movie.getVoteCount(), movie.getVoteCount()));
     }
 
     @Override

@@ -4,21 +4,21 @@
 
     <!-- main activity -->
     <string name="main_activity_title">Katalog</string>
-    <string name="tab_layout_movie">Film</string>
-    <string name="tab_layout_tv_show">Acara TV</string>
+    <string name="tab_layout_movie">Film Sedang Tayang</string>
+    <string name="tab_layout_tv_show">Acara TV Hari Ini</string>
     <string name="movie_listing">Daftar Film</string>
     <string name="tv_show_listing">Daftar Acara TV</string>
     <string name="api_data_failure">Gagal memperoleh data melalui API!</string>
 
     <!-- movie item & details -->
     <string name="tv_movie_title_placeholder">Judul Film</string>
-    <string name="tv_movie_release_date_placeholder">2019-06-01</string>
+    <string name="tv_movie_release_date_placeholder">3 Juni 2019</string>
     <string name="tv_movie_details_title_placeholder">Judul</string>
     <string name="tv_movie_details_release_date_placeholder">Tanggal Rilis</string>
 
     <!-- tv show item & details -->
     <string name="tv_tvshow_name_placeholder">Nama Acara TV</string>
-    <string name="tv_tvshow_first_air_date_placeholder">2019-06-01</string>
+    <string name="tv_tvshow_first_air_date_placeholder">3 Juni 2019</string>
     <string name="tv_tvshow_details_name_placeholder">Nama</string>
     <string name="tv_tvshow_details_first_air_date_placeholder">Tayangan Pertama</string>
 
