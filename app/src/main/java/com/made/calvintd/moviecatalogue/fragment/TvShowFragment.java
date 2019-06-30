@@ -32,8 +32,8 @@ import butterknife.ButterKnife;
  * A simple {@link Fragment} subclass.
  */
 public class TvShowFragment extends Fragment implements TvShowView {
-    @BindView(R.id.pb_tvshows) ProgressBar progressBar;
-    @BindView(R.id.rv_tvshows) RecyclerView recyclerView;
+    @BindView(R.id.pb_tv_shows) ProgressBar progressBar;
+    @BindView(R.id.rv_tv_shows) RecyclerView recyclerView;
     TvShowPresenter tvShowPresenter = new TvShowPresenter(this);
     private ArrayList<TvShow> tvShows = new ArrayList<>();
     private TvShowAdapter adapter = new TvShowAdapter();
@@ -47,7 +47,7 @@ public class TvShowFragment extends Fragment implements TvShowView {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_tvshow, container, false);
+        View view = inflater.inflate(R.layout.fragment_tv_show, container, false);
         ButterKnife.bind(this, view);
 
         recyclerView.setVisibility(View.INVISIBLE);
@@ -86,7 +86,7 @@ public class TvShowFragment extends Fragment implements TvShowView {
 
     private void showDetails(TvShow tvShow) {
         Intent intent = new Intent(getActivity(), TvShowDetailsActivity.class);
-        intent.putExtra(TvShowDetailsActivity.EXTRA_TVSHOW, tvShow);
+        intent.putExtra(TvShowDetailsActivity.EXTRA_TV_SHOW, tvShow);
         startActivity(intent);
     }
 

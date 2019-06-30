@@ -30,21 +30,21 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         return listMovies;
     }
 
-    public void setListMovies(ArrayList<Movie> listMovies) {
+    public void setListMovies (ArrayList<Movie> listMovies) {
         this.listMovies = listMovies;
     }
 
-    public MovieAdapter () {}
+    public MovieAdapter() {}
 
     @NonNull
     @Override
-    public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
+    public MovieViewHolder onCreateViewHolder (@NonNull ViewGroup parent, int i) {
         View itemRow = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_movie, parent, false);
         return new MovieViewHolder(itemRow);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MovieViewHolder movieViewHolder, int i) {
+    public void onBindViewHolder (@NonNull MovieViewHolder movieViewHolder, int i) {
         Movie movie = getListMovies().get(i);
 
         if (movie.getPosterPath() != null) {
@@ -89,7 +89,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         @BindView(R.id.tv_movie_item_release_date) TextView tvReleaseDate;
         @BindView(R.id.tv_movie_item_score) TextView tvScore;
 
-        MovieViewHolder(@NonNull View itemView) {
+        MovieViewHolder (@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }

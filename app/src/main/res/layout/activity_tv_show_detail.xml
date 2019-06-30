@@ -12,23 +12,23 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/img_tvshow_detail_poster"
+            android:id="@+id/img_tv_show_detail_poster"
             android:layout_width="180dp"
             android:layout_height="270dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_tvshow_detail_name" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_tv_show_detail_name" />
 
         <TextView
-            android:id="@+id/tv_tvshow_detail_name"
+            android:id="@+id/tv_tv_show_detail_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:gravity="center"
-            android:text="@string/tv_tvshow_details_name_placeholder"
+            android:text="@string/tv_tv_show_details_name_placeholder"
             android:textSize="28sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -36,36 +36,36 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_tvshow_detail_first_air_date_id"
+            android:id="@+id/tv_tv_show_detail_first_air_date_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:text="@string/tv_tvshow_details_first_air_date_placeholder"
+            android:text="@string/tv_tv_show_details_first_air_date_placeholder"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/img_tvshow_detail_poster"
-            app:layout_constraintTop_toBottomOf="@+id/tv_tvshow_detail_name" />
+            app:layout_constraintStart_toEndOf="@+id/img_tv_show_detail_poster"
+            app:layout_constraintTop_toBottomOf="@+id/tv_tv_show_detail_name" />
 
         <TextView
-            android:id="@+id/tv_tvshow_detail_first_air_date"
+            android:id="@+id/tv_tv_show_detail_first_air_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            android:text="@string/tv_tvshow_first_air_date_placeholder"
+            android:text="@string/tv_tv_show_first_air_date_placeholder"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/img_tvshow_detail_poster"
-            app:layout_constraintTop_toBottomOf="@+id/tv_tvshow_detail_first_air_date_id" />
+            app:layout_constraintStart_toEndOf="@+id/img_tv_show_detail_poster"
+            app:layout_constraintTop_toBottomOf="@+id/tv_tv_show_detail_first_air_date_id" />
 
         <TextView
-            android:id="@+id/tv_tvshow_detail_score_id"
+            android:id="@+id/tv_tv_show_detail_score_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -76,11 +76,11 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/img_tvshow_detail_poster"
-            app:layout_constraintTop_toBottomOf="@+id/tv_tvshow_detail_first_air_date" />
+            app:layout_constraintStart_toEndOf="@+id/img_tv_show_detail_poster"
+            app:layout_constraintTop_toBottomOf="@+id/tv_tv_show_detail_first_air_date" />
 
         <TextView
-            android:id="@+id/tv_tvshow_detail_score"
+            android:id="@+id/tv_tv_show_detail_score"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -90,11 +90,11 @@
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/img_tvshow_detail_poster"
-            app:layout_constraintTop_toBottomOf="@+id/tv_tvshow_detail_score_id" />
+            app:layout_constraintStart_toEndOf="@+id/img_tv_show_detail_poster"
+            app:layout_constraintTop_toBottomOf="@+id/tv_tv_show_detail_score_id" />
 
         <TextView
-            android:id="@+id/tv_tvshow_detail_overview"
+            android:id="@+id/tv_tv_show_detail_overview"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -105,7 +105,21 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/img_tvshow_detail_poster" />
+            app:layout_constraintTop_toBottomOf="@+id/img_tv_show_detail_poster" />
+
+        <ImageView
+            android:id="@+id/img_tv_show_detail_favorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="151dp"
+            android:layout_marginTop="91dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/tv_tv_show_detail_overview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/img_tv_show_detail_poster"
+            app:layout_constraintTop_toBottomOf="@+id/tv_tv_show_detail_score"
+            app:srcCompat="@drawable/ic_favorite_border_black_48dp" />
 
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

@@ -26,25 +26,25 @@ import butterknife.ButterKnife;
 public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder> {
     private ArrayList<TvShow> listTvShow;
 
-    public ArrayList<TvShow> getListTvShow() {
+    public ArrayList<TvShow> getListTvShow () {
         return listTvShow;
     }
 
-    public void setListTvShow(ArrayList<TvShow> listTvShow) {
+    public void setListTvShow (ArrayList<TvShow> listTvShow) {
         this.listTvShow = listTvShow;
     }
 
-    public TvShowAdapter() { }
+    public TvShowAdapter () { }
 
     @NonNull
     @Override
-    public TvShowViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-        View itemRow = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_tvshow, parent, false);
+    public TvShowViewHolder onCreateViewHolder (@NonNull ViewGroup parent, int i) {
+        View itemRow = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_tv_show, parent, false);
         return new TvShowViewHolder(itemRow);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TvShowViewHolder tvShowViewHolder, int i) {
+    public void onBindViewHolder (@NonNull TvShowViewHolder tvShowViewHolder, int i) {
         TvShow tvShow = getListTvShow().get(i);
 
         if (tvShow.getPosterPath() != null) {
@@ -79,15 +79,15 @@ public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.TvShowView
     }
 
     @Override
-    public int getItemCount() {
+    public int getItemCount () {
         return getListTvShow().size();
     }
 
     class TvShowViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.img_tvshow_item_poster) ImageView imgPoster;
-        @BindView(R.id.tv_tvshow_item_name) TextView tvName;
-        @BindView(R.id.tv_tvshow_item_first_air_date) TextView tvFirstAirDate;
-        @BindView(R.id.tv_tvshow_item_score) TextView tvScore;
+        @BindView(R.id.img_tv_show_item_poster) ImageView imgPoster;
+        @BindView(R.id.tv_tv_show_item_name) TextView tvName;
+        @BindView(R.id.tv_tv_show_item_first_air_date) TextView tvFirstAirDate;
+        @BindView(R.id.tv_tv_show_item_score) TextView tvScore;
 
         TvShowViewHolder(@NonNull View itemView) {
             super(itemView);

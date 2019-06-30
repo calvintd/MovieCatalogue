@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/img_movie_item_poster"
+        android:id="@+id/img_fav_movie_item_poster"
         android:layout_width="100dp"
         android:layout_height="150dp"
         android:layout_marginStart="16dp"
@@ -14,10 +13,11 @@
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/tv_movie_item_title"
+        android:id="@+id/tv_fav_movie_item_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -28,11 +28,11 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/img_movie_item_poster"
+        app:layout_constraintStart_toEndOf="@+id/img_fav_movie_item_poster"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_movie_item_release_date"
+        android:id="@+id/tv_fav_movie_item_release_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -42,11 +42,11 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/img_movie_item_poster"
-        app:layout_constraintTop_toBottomOf="@+id/tv_movie_item_title" />
+        app:layout_constraintStart_toEndOf="@+id/img_fav_movie_item_poster"
+        app:layout_constraintTop_toBottomOf="@+id/tv_fav_movie_item_title" />
 
     <TextView
-        android:id="@+id/tv_movie_item_score"
+        android:id="@+id/tv_fav_movie_item_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -56,7 +56,21 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/img_movie_item_poster"
-        app:layout_constraintTop_toBottomOf="@+id/tv_movie_item_release_date" />
+        app:layout_constraintStart_toEndOf="@+id/img_fav_movie_item_poster"
+        app:layout_constraintTop_toBottomOf="@+id/tv_fav_movie_item_release_date" />
 
+    <ImageView
+        android:id="@+id/img_fav_movie_item_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/img_fav_movie_item_poster"
+        app:layout_constraintTop_toBottomOf="@+id/tv_fav_movie_item_score"
+        app:srcCompat="@drawable/ic_delete_black_36dp" />
 </android.support.constraint.ConstraintLayout>

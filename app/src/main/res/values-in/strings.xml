@@ -17,10 +17,10 @@
     <string name="tv_movie_details_release_date_placeholder">Tanggal Rilis</string>
 
     <!-- tv show item & details -->
-    <string name="tv_tvshow_name_placeholder">Nama Acara TV</string>
-    <string name="tv_tvshow_first_air_date_placeholder">3 Juni 2019</string>
-    <string name="tv_tvshow_details_name_placeholder">Nama</string>
-    <string name="tv_tvshow_details_first_air_date_placeholder">Tayangan Pertama</string>
+    <string name="tv_tv_show_name_placeholder">Nama Acara TV</string>
+    <string name="tv_tv_show_first_air_date_placeholder">3 Juni 2019</string>
+    <string name="tv_tv_show_details_name_placeholder">Nama</string>
+    <string name="tv_tv_show_details_first_air_date_placeholder">Tayangan Pertama</string>
 
     <!-- detail activity -->
     <string name="details_activity_title">Rincian</string>
@@ -29,6 +29,10 @@
     <plurals name="tv_score">
         <item quantity="other"> (%d suara)</item>
     </plurals>
+    <string name="details_favorite_confirmation_message">Apakah Anda yakin ingin menambahkan ini ke daftar favorit Anda?</string>
+    <string name="details_favorite_confirmation_yes">Ya</string>
+    <string name="details_favorite_confirmation_no">Tidak</string>
+    <string name="details_favorite_added">Telah ditambahkan ke dalam daftar favorit Anda!</string>
 
     <!-- language fragment -->
     <string name="language_fragment_title">Bahasa</string>
@@ -39,6 +43,18 @@
     <string name="language_message_currently_used">Ini adalah bahasa yang sedang digunakan!</string>
     <string name="language_message_chosen">Penggantian bahasa aplikasi sukses!</string>
 
+    <!-- favorites activity -->
+    <string name="favorites_activity_title">Favorit</string>
+    <string name="tab_layout_fav_movie">Film</string>
+    <string name="tab_layout_fav_tv_show">Acara TV</string>
+    <string name="fav_movie_listing">Film Favorit</string>
+    <string name="fav_tv_show_listing">Acara TV Favorit</string>
+    <string name="favorites_delete_confirmation_message">Apakah Anda yakin ingin menghapus ini dari daftar favorit Anda?</string>
+    <string name="favorites_delete_confirmation_yes">Ya</string>
+    <string name="favorites_delete_confirmation_no">Tidak</string>
+    <string name="favorites_delete_deleted">Telah dihapus dari daftar favorit Anda!</string>
+
     <!-- menu -->
     <string name="menu_language">Ubah Bahasa</string>
+    <string name="menu_favorites">Favorit</string>
 </resources>
