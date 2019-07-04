@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import com.made.calvintd.moviecatalogue.converter.DateConverter;
 import com.made.calvintd.moviecatalogue.itemmodel.TvShow;
 import com.made.calvintd.moviecatalogue.R;
 
@@ -63,16 +64,7 @@ public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.TvShowView
 
         tvShowViewHolder.tvName.setText(tvShow.getName());
 
-        Locale locale = tvShowViewHolder.tvFirstAirDate.getResources().getConfiguration().locale;
-        DateFormat inputDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        DateFormat outputDateFormat = DateFormat.getDateInstance(DateFormat.LONG, locale);
-        String inputDate = tvShow.getFirstAirDate();
-        try {
-            Date parsedDate = inputDateFormat.parse(inputDate);
-            tvShowViewHolder.tvFirstAirDate.setText(outputDateFormat.format(parsedDate));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        tvShowViewHolder.tvFirstAirDate.setText(DateConverter.convertDate(tvShowViewHolder.tvFirstAirDate.getContext(), tvShow.getFirstAirDate()));
 
         tvShowViewHolder.tvScore.setText(tvShow.getVoteAverage() +  " " + tvShowViewHolder.tvScore.getResources()
                 .getQuantityString(R.plurals.tv_score, tvShow.getVoteCount(), tvShow.getVoteCount()));

@@ -2,13 +2,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/menu_search"
+        android:icon="@drawable/ic_menu_search"
+        android:title="@string/menu_search"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/menu_favorite"
+        android:icon="@drawable/ic_menu_favorite"
+        android:title="@string/menu_favorites"
+        app:showAsAction="ifRoom"/>
+    <item
         android:id="@+id/menu_language"
         android:icon="@drawable/ic_menu_language"
         android:title="@string/menu_language"
         app:showAsAction="ifRoom"/>
     <item
-        android:id="@+id/menu_favorite"
-        android:icon="@drawable/ic_favorite_white_48dp"
-        android:title="@string/menu_favorites"
+        android:id="@+id/menu_reminder"
+        android:icon="@drawable/ic_menu_alarm"
+        android:title="@string/menu_reminder"
         app:showAsAction="ifRoom"/>
 </menu>

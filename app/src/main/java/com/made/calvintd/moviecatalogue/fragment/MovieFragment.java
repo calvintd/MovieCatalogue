@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
 
 import com.made.calvintd.moviecatalogue.R;
 import com.made.calvintd.moviecatalogue.activity.MovieDetailsActivity;
@@ -24,6 +25,7 @@ import com.made.calvintd.moviecatalogue.view.MovieView;
 import com.made.calvintd.moviecatalogue.viewmodel.MovieViewModel;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,6 +40,7 @@ public class MovieFragment extends Fragment implements MovieView {
     private ArrayList<Movie> movies = new ArrayList<>();
     private MovieAdapter adapter = new MovieAdapter();
     private MovieViewModel movieViewModel;
+    SearchView searchView;
 
     public MovieFragment() {
         // Required empty public constructor
@@ -49,10 +52,11 @@ public class MovieFragment extends Fragment implements MovieView {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_movie, container, false);
         ButterKnife.bind(this, view);
+        searchView = Objects.requireNonNull(getActivity()).findViewById(R.id.main_searchview);
 
         recyclerView.setVisibility(View.INVISIBLE);
 
-        movieViewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
+        movieViewModel = ViewModelProviders.of( this).get(MovieViewModel.class);
         movieViewModel.getMovies().observe(this, getMoviesObserver);
 
         if (movieViewModel.getMovies().getValue() == null) {
@@ -66,6 +70,18 @@ public class MovieFragment extends Fragment implements MovieView {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                 showDetails(movies.get(position));
+            }
+        });
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
             }
         });
 

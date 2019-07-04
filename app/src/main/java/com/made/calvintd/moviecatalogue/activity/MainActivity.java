@@ -12,10 +12,13 @@ import android.support.design.widget.TabLayout;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.SearchView;
 
 import com.made.calvintd.moviecatalogue.adapter.PagerAdapter;
 import com.made.calvintd.moviecatalogue.fragment.LanguageFragment;
 import com.made.calvintd.moviecatalogue.fragment.MovieFragment;
+import com.made.calvintd.moviecatalogue.fragment.ReminderFragment;
 import com.made.calvintd.moviecatalogue.fragment.TvShowFragment;
 import com.made.calvintd.moviecatalogue.R;
 
@@ -26,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.main_toolbar) Toolbar toolbar;
     @BindView(R.id.main_tab_layout) TabLayout tabLayout;
     @BindView(R.id.main_pager) ViewPager viewPager;
+    @BindView(R.id.main_searchview) SearchView searchView;
     private Configuration config;
 
     @Override
@@ -58,15 +62,27 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
         switch (item.getItemId()) {
-            case R.id.menu_language:
-                LanguageFragment mLanguageFragment = new LanguageFragment();
-                FragmentManager mFragmentManager = getSupportFragmentManager();
-                mLanguageFragment.show(mFragmentManager, LanguageFragment.class.getSimpleName());
+            case R.id.menu_search:
+                if (searchView.getVisibility() == View.GONE) {
+                    searchView.setVisibility(View.VISIBLE);
+                } else {
+                    searchView.setVisibility(View.GONE);
+                }
                 break;
             case R.id.menu_favorite:
                 Intent intent = new Intent(this, FavoriteActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.menu_language:
+                LanguageFragment languageFragment = new LanguageFragment();
+                languageFragment.show(fragmentManager, LanguageFragment.class.getSimpleName());
+                break;
+            case R.id.menu_reminder:
+                ReminderFragment reminderFragment = new ReminderFragment();
+                reminderFragment.show(fragmentManager, ReminderFragment.class.getSimpleName());
                 break;
         }
         return super.onOptionsItemSelected(item);

@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
 
 import com.made.calvintd.moviecatalogue.R;
 import com.made.calvintd.moviecatalogue.activity.TvShowDetailsActivity;
@@ -24,6 +25,7 @@ import com.made.calvintd.moviecatalogue.view.TvShowView;
 import com.made.calvintd.moviecatalogue.viewmodel.TvShowViewModel;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,6 +40,7 @@ public class TvShowFragment extends Fragment implements TvShowView {
     private ArrayList<TvShow> tvShows = new ArrayList<>();
     private TvShowAdapter adapter = new TvShowAdapter();
     private TvShowViewModel tvShowViewModel;
+    SearchView searchView;
 
     public TvShowFragment() {
         // Required empty public constructor
@@ -49,6 +52,7 @@ public class TvShowFragment extends Fragment implements TvShowView {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_tv_show, container, false);
         ButterKnife.bind(this, view);
+        searchView = Objects.requireNonNull(getActivity()).findViewById(R.id.main_searchview);
 
         recyclerView.setVisibility(View.INVISIBLE);
 
@@ -66,6 +70,18 @@ public class TvShowFragment extends Fragment implements TvShowView {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                 showDetails(tvShows.get(position));
+            }
+        });
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
             }
         });
 

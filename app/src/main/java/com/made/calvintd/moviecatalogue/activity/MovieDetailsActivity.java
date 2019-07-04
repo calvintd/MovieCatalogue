@@ -18,9 +18,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.made.calvintd.moviecatalogue.converter.DateConverter;
 import com.made.calvintd.moviecatalogue.dao.CatalogueDao;
 import com.made.calvintd.moviecatalogue.db.CatalogueDatabase;
 import com.made.calvintd.moviecatalogue.fragment.LanguageFragment;
+import com.made.calvintd.moviecatalogue.fragment.ReminderFragment;
 import com.made.calvintd.moviecatalogue.itemmodel.FavoriteMovie;
 import com.made.calvintd.moviecatalogue.itemmodel.Movie;
 import com.made.calvintd.moviecatalogue.R;
@@ -79,16 +81,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
 
         tvTitle.setText(movie.getTitle());
 
-        Locale locale = configuration.locale;
-        DateFormat inputDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        DateFormat outputDateFormat = DateFormat.getDateInstance(DateFormat.LONG, locale);
-        String inputDate = movie.getReleaseDate();
-        try {
-            Date parsedDate = inputDateFormat.parse(inputDate);
-            tvReleaseDate.setText(outputDateFormat.format(parsedDate));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        tvReleaseDate.setText(DateConverter.convertDate(this, movie.getReleaseDate()));
 
         tvScore.setText(movie.getVoteAverage() + " " + resources.getQuantityString(R.plurals.tv_score, movie.getVoteCount(), movie.getVoteCount()));
 
@@ -147,10 +140,17 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.other_menu_language) {
-            LanguageFragment mLanguageFragment = new LanguageFragment();
-            FragmentManager mFragmentManager = getSupportFragmentManager();
-            mLanguageFragment.show(mFragmentManager, LanguageFragment.class.getSimpleName());
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        switch (item.getItemId()) {
+            case R.id.menu_language:
+                LanguageFragment languageFragment = new LanguageFragment();
+                languageFragment.show(fragmentManager, LanguageFragment.class.getSimpleName());
+                break;
+            case R.id.menu_reminder:
+                ReminderFragment reminderFragment = new ReminderFragment();
+                reminderFragment.show(fragmentManager, ReminderFragment.class.getSimpleName());
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

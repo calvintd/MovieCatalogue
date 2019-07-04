@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.made.calvintd.moviecatalogue.R;
+import com.made.calvintd.moviecatalogue.converter.DateConverter;
 import com.made.calvintd.moviecatalogue.db.CatalogueDatabase;
 import com.made.calvintd.moviecatalogue.itemmodel.FavoriteMovie;
 
@@ -66,16 +67,8 @@ public class FavoriteMovieAdapter extends RecyclerView.Adapter<FavoriteMovieAdap
 
         favoriteMovieViewHolder.tvTitle.setText(favoriteMovie.getTitle());
 
-        Locale locale = favoriteMovieViewHolder.tvReleaseDate.getResources().getConfiguration().locale;
-        DateFormat inputDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        DateFormat outputDateFormat = DateFormat.getDateInstance(DateFormat.LONG, locale);
-        String inputDateText = favoriteMovie.getReleaseDate();
-        try {
-            Date parsedDate = inputDateFormat.parse(inputDateText);
-            favoriteMovieViewHolder.tvReleaseDate.setText(outputDateFormat.format(parsedDate));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        favoriteMovieViewHolder.tvReleaseDate.setText(DateConverter.convertDate(favoriteMovieViewHolder.tvReleaseDate.getContext(),
+                favoriteMovie.getReleaseDate()));
 
         favoriteMovieViewHolder.tvScore.setText(favoriteMovie.getVoteAverage() + " " + favoriteMovieViewHolder.tvScore.getResources()
                 .getQuantityString(R.plurals.tv_score, favoriteMovie.getVoteCount(), favoriteMovie.getVoteCount()));
