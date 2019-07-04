@@ -9,17 +9,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-
+import com.made.calvintd.moviecatalogue.R;
 import com.made.calvintd.moviecatalogue.converter.DateConverter;
 import com.made.calvintd.moviecatalogue.itemmodel.TvShow;
-import com.made.calvintd.moviecatalogue.R;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

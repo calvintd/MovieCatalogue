@@ -17,12 +17,7 @@ import com.made.calvintd.moviecatalogue.converter.DateConverter;
 import com.made.calvintd.moviecatalogue.db.CatalogueDatabase;
 import com.made.calvintd.moviecatalogue.itemmodel.FavoriteTvShow;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

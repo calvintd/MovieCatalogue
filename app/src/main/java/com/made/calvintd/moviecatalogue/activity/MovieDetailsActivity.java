@@ -4,11 +4,11 @@ import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.Layout;
 import android.util.DisplayMetrics;
 import android.view.Menu;
@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.made.calvintd.moviecatalogue.R;
 import com.made.calvintd.moviecatalogue.converter.DateConverter;
 import com.made.calvintd.moviecatalogue.dao.CatalogueDao;
 import com.made.calvintd.moviecatalogue.db.CatalogueDatabase;
@@ -25,13 +26,6 @@ import com.made.calvintd.moviecatalogue.fragment.LanguageFragment;
 import com.made.calvintd.moviecatalogue.fragment.ReminderFragment;
 import com.made.calvintd.moviecatalogue.itemmodel.FavoriteMovie;
 import com.made.calvintd.moviecatalogue.itemmodel.Movie;
-import com.made.calvintd.moviecatalogue.R;
-
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
