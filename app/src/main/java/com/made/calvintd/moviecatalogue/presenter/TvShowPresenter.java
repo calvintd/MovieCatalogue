@@ -54,7 +54,7 @@ public class TvShowPresenter{
                             }
 
                             TvShowAdapter tvShowAdapter = new TvShowAdapter();
-                            tvShowAdapter.setListTvShow(tvShows);
+                            tvShowAdapter.setListTvShows(tvShows);
                             TvShowModel model = new TvShowModel(tvShowAdapter);
                             view.showTvShows(model);
                         }

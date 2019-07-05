@@ -25,7 +25,7 @@ public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.TvShowView
         return listTvShow;
     }
 
-    public void setListTvShow (ArrayList<TvShow> listTvShow) {
+    public void setListTvShows (ArrayList<TvShow> listTvShow) {
         this.listTvShow = listTvShow;
     }
 

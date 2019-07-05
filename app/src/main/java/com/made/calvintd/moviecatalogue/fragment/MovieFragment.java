@@ -25,7 +25,6 @@ import com.made.calvintd.moviecatalogue.view.MovieView;
 import com.made.calvintd.moviecatalogue.viewmodel.MovieViewModel;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,11 +35,12 @@ import butterknife.ButterKnife;
 public class MovieFragment extends Fragment implements MovieView {
     @BindView(R.id.pb_movies) ProgressBar progressBar;
     @BindView(R.id.rv_movies) RecyclerView recyclerView;
+    @BindView(R.id.movie_searchview) SearchView searchView;
     MoviePresenter moviePresenter = new MoviePresenter(this);
     private ArrayList<Movie> movies = new ArrayList<>();
     private MovieAdapter adapter = new MovieAdapter();
     private MovieViewModel movieViewModel;
-    SearchView searchView;
+    private ArrayList<Movie> filteredMovies = new ArrayList<>();
 
     public MovieFragment() {
         // Required empty public constructor
@@ -52,14 +52,14 @@ public class MovieFragment extends Fragment implements MovieView {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_movie, container, false);
         ButterKnife.bind(this, view);
-        searchView = Objects.requireNonNull(getActivity()).findViewById(R.id.main_searchview);
 
         recyclerView.setVisibility(View.INVISIBLE);
+        searchView.setVisibility(View.GONE);
 
         movieViewModel = ViewModelProviders.of( this).get(MovieViewModel.class);
         movieViewModel.getMovies().observe(this, getMoviesObserver);
 
-        if (movieViewModel.getMovies().getValue() == null) {
+        if(movieViewModel.getMovies().getValue() == null) {
             moviePresenter.getData(getActivity(), movies);
         } else {
             movies = movieViewModel.getMovies().getValue();
@@ -69,7 +69,11 @@ public class MovieFragment extends Fragment implements MovieView {
         ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                showDetails(movies.get(position));
+                if(filteredMovies.isEmpty()) {
+                    showDetails(movies.get(position));
+                } else {
+                    showDetails(filteredMovies.get(position));
+                }
             }
         });
 
@@ -81,6 +85,15 @@ public class MovieFragment extends Fragment implements MovieView {
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                filteredMovies.clear();
+                for(Movie movie: movies) {
+                    if(movie.getTitle().toLowerCase().contains(newText.toLowerCase())) {
+                        filteredMovies.add(movie);
+                    }
+                }
+                adapter.setListMovies(filteredMovies);
+                recyclerView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
                 return false;
             }
         });
@@ -96,6 +109,7 @@ public class MovieFragment extends Fragment implements MovieView {
                 recyclerView.setAdapter(adapter);
                 progressBar.setVisibility(View.GONE);
                 recyclerView.setVisibility(View.VISIBLE);
+                searchView.setVisibility(View.VISIBLE);
                 recyclerView.setHasFixedSize(true);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             }
@@ -117,7 +131,18 @@ public class MovieFragment extends Fragment implements MovieView {
 
         progressBar.setVisibility(View.GONE);
         recyclerView.setVisibility(View.VISIBLE);
+        searchView.setVisibility(View.VISIBLE);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(!filteredMovies.isEmpty()) {
+            adapter.setListMovies(filteredMovies);
+            recyclerView.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+        }
     }
 }

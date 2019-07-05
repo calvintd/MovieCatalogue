@@ -9,7 +9,7 @@
     <string name="movie_listing">Movie Listing</string>
     <string name="tv_show_listing">TV Show Listing</string>
     <string name="api_data_failure">Failed to acquire data through the API!</string>
-    <string name="searchview_query_hint">Insert the show\'s name here…</string>
+    <string name="searchview_query_hint">Find a show using its name here…</string>
 
     <!-- movie item & details -->
     <string name="tv_movie_title_placeholder">Movie Title</string>

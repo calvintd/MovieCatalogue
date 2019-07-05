@@ -12,8 +12,6 @@ import android.support.design.widget.TabLayout;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.SearchView;
 
 import com.made.calvintd.moviecatalogue.adapter.PagerAdapter;
 import com.made.calvintd.moviecatalogue.fragment.LanguageFragment;
@@ -29,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.main_toolbar) Toolbar toolbar;
     @BindView(R.id.main_tab_layout) TabLayout tabLayout;
     @BindView(R.id.main_pager) ViewPager viewPager;
-    @BindView(R.id.main_searchview) SearchView searchView;
     private Configuration config;
 
     @Override
@@ -65,13 +62,6 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
 
         switch (item.getItemId()) {
-            case R.id.menu_search:
-                if (searchView.getVisibility() == View.GONE) {
-                    searchView.setVisibility(View.VISIBLE);
-                } else {
-                    searchView.setVisibility(View.GONE);
-                }
-                break;
             case R.id.menu_favorite:
                 Intent intent = new Intent(this, FavoriteActivity.class);
                 startActivity(intent);

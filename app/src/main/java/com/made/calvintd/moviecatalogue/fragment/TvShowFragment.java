@@ -25,7 +25,6 @@ import com.made.calvintd.moviecatalogue.view.TvShowView;
 import com.made.calvintd.moviecatalogue.viewmodel.TvShowViewModel;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,11 +35,12 @@ import butterknife.ButterKnife;
 public class TvShowFragment extends Fragment implements TvShowView {
     @BindView(R.id.pb_tv_shows) ProgressBar progressBar;
     @BindView(R.id.rv_tv_shows) RecyclerView recyclerView;
+    @BindView(R.id.tv_show_searchview) SearchView searchView;
     TvShowPresenter tvShowPresenter = new TvShowPresenter(this);
     private ArrayList<TvShow> tvShows = new ArrayList<>();
     private TvShowAdapter adapter = new TvShowAdapter();
     private TvShowViewModel tvShowViewModel;
-    SearchView searchView;
+    private ArrayList<TvShow> filteredTvShows = new ArrayList<>();
 
     public TvShowFragment() {
         // Required empty public constructor
@@ -52,14 +52,14 @@ public class TvShowFragment extends Fragment implements TvShowView {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_tv_show, container, false);
         ButterKnife.bind(this, view);
-        searchView = Objects.requireNonNull(getActivity()).findViewById(R.id.main_searchview);
 
         recyclerView.setVisibility(View.INVISIBLE);
+        searchView.setVisibility(View.GONE);
 
         tvShowViewModel = ViewModelProviders.of(this).get(TvShowViewModel.class);
         tvShowViewModel.getTvShows().observe(this, getTvShowsObserver);
 
-        if (tvShowViewModel.getTvShows().getValue() == null) {
+        if(tvShowViewModel.getTvShows().getValue() == null) {
             tvShowPresenter.getData(getActivity(), tvShows);
         } else {
             tvShows = tvShowViewModel.getTvShows().getValue();
@@ -69,7 +69,11 @@ public class TvShowFragment extends Fragment implements TvShowView {
         ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                showDetails(tvShows.get(position));
+                if(filteredTvShows.isEmpty()) {
+                    showDetails(tvShows.get(position));
+                } else {
+                    showDetails(filteredTvShows.get(position));
+                }
             }
         });
 
@@ -81,6 +85,15 @@ public class TvShowFragment extends Fragment implements TvShowView {
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                filteredTvShows.clear();
+                for(TvShow tvShow: tvShows) {
+                    if(tvShow.getName().toLowerCase().contains(newText.toLowerCase())) {
+                        filteredTvShows.add(tvShow);
+                    }
+                }
+                adapter.setListTvShows(filteredTvShows);
+                recyclerView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
                 return false;
             }
         });
@@ -91,10 +104,11 @@ public class TvShowFragment extends Fragment implements TvShowView {
     private Observer<ArrayList<TvShow>> getTvShowsObserver = new Observer<ArrayList<TvShow>>() {
         @Override
         public void onChanged(ArrayList<TvShow> tvShows) {
-            adapter.setListTvShow(tvShows);
+            adapter.setListTvShows(tvShows);
             recyclerView.setAdapter(adapter);
             progressBar.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);
+            searchView.setVisibility(View.VISIBLE);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         }
@@ -115,7 +129,18 @@ public class TvShowFragment extends Fragment implements TvShowView {
 
         progressBar.setVisibility(View.GONE);
         recyclerView.setVisibility(View.VISIBLE);
+        searchView.setVisibility(View.VISIBLE);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(!filteredTvShows.isEmpty()) {
+            adapter.setListTvShows(filteredTvShows);
+            recyclerView.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+        }
     }
 }
