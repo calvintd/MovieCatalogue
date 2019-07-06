@@ -11,9 +11,30 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <receiver android:name=".widgetprovider.FavoriteMoviesWidgetProvider"
+            android:label="@string/favorite_movies_widget_id">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/favorite_movies_widget_info" />
+        </receiver>
+        <receiver android:name=".widgetprovider.FavoriteTVShowsWidgetProvider"
+            android:label="@string/favorite_tv_shows_widget_id">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/favorite_tv_shows_widget_info" />
+        </receiver>
+
         <activity
             android:name=".activity.FavoriteActivity"
-            android:theme="@style/AppThemeNAB"/>
+            android:theme="@style/AppThemeNAB" />
         <activity android:name=".activity.TvShowDetailsActivity" />
         <activity
             android:name=".activity.MainActivity"
@@ -25,6 +46,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.MovieDetailsActivity" />
+        <service
+            android:name="com.made.calvintd.moviecatalogue.widgetservice.FavoriteMoviesWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+        <service
+            android:name="com.made.calvintd.moviecatalogue.widgetservice.FavoriteTvShowsWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
     </application>
 
 </manifest>

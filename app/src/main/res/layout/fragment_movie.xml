@@ -5,19 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <SearchView
-        android:id="@+id/movie_searchview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:iconifiedByDefault="false"
-        android:queryHint="@string/searchview_query_hint" />
-
     <android.widget.ProgressBar
         android:id="@+id/pb_movies"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:padding="128dp" />
+
+    <SearchView
+        android:id="@+id/movie_searchview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:iconifiedByDefault="false"
+        android:queryHint="@string/searchview_query_hint" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_movies"

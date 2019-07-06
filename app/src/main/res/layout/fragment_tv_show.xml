@@ -5,20 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <android.widget.ProgressBar
+        android:id="@+id/pb_tv_shows"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:padding="128dp" />
+
     <SearchView
         android:id="@+id/tv_show_searchview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:iconifiedByDefault="false"
         android:queryHint="@string/searchview_query_hint" />
-
-    <android.widget.ProgressBar
-        android:id="@+id/pb_tv_shows"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:padding="128dp"
-        />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_tv_shows"

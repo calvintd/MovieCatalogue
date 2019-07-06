@@ -73,4 +73,9 @@
     <string name="menu_favorites">Favorites</string>
     <string name="menu_language">Language</string>
     <string name="menu_reminder">Reminder</string>
+
+    <!-- widgets -->
+    <string name="favorite_movies_widget_id">Favorite Movies</string>
+    <string name="favorite_tv_shows_widget_id">Favorite TV Shows</string>
+    <string name="favorites_widget_no_data">No shows yet!</string>
 </resources>

@@ -1,6 +1,5 @@
 package com.made.calvintd.moviecatalogue.fragment;
 
-
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;

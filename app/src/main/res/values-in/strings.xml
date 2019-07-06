@@ -68,4 +68,10 @@
     <string name="menu_favorites">Favorit</string>
     <string name="menu_search">Cari</string>
     <string name="menu_reminder">Pengingat</string>
+
+    <!-- widgets -->
+    <string name="favorite_movies_widget_id">Film Favorit</string>
+    <string name="favorite_tv_shows_widget_id">Acara TV Favorit</string>
+    <string name="favorite_show_id_placeholder">Tayangan A</string>
+    <string name="favorites_widget_no_data">Belum ada tayangan!</string>
 </resources>
