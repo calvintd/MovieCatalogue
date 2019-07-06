@@ -44,7 +44,7 @@
     <string name="language_message_currently_used">Ini adalah bahasa yang sedang digunakan!</string>
     <string name="language_message_chosen">Penggantian bahasa aplikasi sukses!</string>
 
-    <!-- reminder fragment -->
+    <!-- reminder fragment & notifications -->
     <string name="reminder_fragment_title">Pengingat</string>
     <string name="switch_reminder_daily">Harian</string>
     <string name="switch_reminder_new_releases">Terbaru</string>

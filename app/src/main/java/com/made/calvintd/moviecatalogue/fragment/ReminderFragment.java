@@ -3,6 +3,7 @@ package com.made.calvintd.moviecatalogue.fragment;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -23,14 +24,16 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ReminderFragment extends DialogFragment implements View.OnClickListener {
+public class ReminderFragment extends DialogFragment implements View.OnClickListener, SharedPreferences.OnSharedPreferenceChangeListener {
     @BindView(R.id.switch_reminder_daily) Switch switchDaily;
     @BindView(R.id.switch_reminder_new_releases) Switch switchNewReleases;
     @BindView(R.id.btn_reminder_save) Button btnSave;
     @BindView(R.id.btn_reminder_close) Button btnClose;
     private SharedPreferences sharedPreferences;
     private Context context;
-    private static final String REMINDER_PREF = "reminder_pref";
+    private String REMINDER_PREF;
+    private String DAILY_REMINDER_PREF;
+    private String NEWEST_REMINDER_PREF;
 
     public ReminderFragment() {
         // Required empty public constructor
@@ -51,10 +54,14 @@ public class ReminderFragment extends DialogFragment implements View.OnClickList
         btnClose.setOnClickListener(this);
 
         context = view.getContext();
-        sharedPreferences = context.getSharedPreferences(REMINDER_PREF, Context.MODE_PRIVATE);
+        Resources resources = context.getResources();
+        REMINDER_PREF = resources.getString(R.string.shared_preferences_reminder);
+        DAILY_REMINDER_PREF = resources.getString(R.string.shared_preferences_reminder_daily);
+        NEWEST_REMINDER_PREF = resources.getString(R.string.shared_preferences_reminder_newest);
 
-        switchDaily.setChecked(sharedPreferences.getBoolean("daily", false));
-        switchNewReleases.setChecked(sharedPreferences.getBoolean("new_releases", false));
+        sharedPreferences = context.getSharedPreferences(REMINDER_PREF, Context.MODE_PRIVATE);
+        switchDaily.setChecked(sharedPreferences.getBoolean(DAILY_REMINDER_PREF, false));
+        switchNewReleases.setChecked(sharedPreferences.getBoolean(NEWEST_REMINDER_PREF, false));
     }
 
     @Override
@@ -62,10 +69,11 @@ public class ReminderFragment extends DialogFragment implements View.OnClickList
         switch(v.getId()) {
             case R.id.btn_reminder_save:
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putBoolean("daily", switchDaily.isChecked());
-                editor.putBoolean("new_releases", switchNewReleases.isChecked());
+                editor.putBoolean(DAILY_REMINDER_PREF, switchDaily.isChecked());
+                editor.putBoolean(NEWEST_REMINDER_PREF, switchNewReleases.isChecked());
                 editor.apply();
                 showToastSavedReminderPreferences();
+                onSharedPreferenceChanged(sharedPreferences, REMINDER_PREF);
                 this.dismiss();
                 break;
             case R.id.btn_reminder_close:
@@ -76,5 +84,34 @@ public class ReminderFragment extends DialogFragment implements View.OnClickList
 
     private void showToastSavedReminderPreferences() {
         Toast.makeText(context, getResources().getString(R.string.reminder_message_saved), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        sharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if(key.equals(REMINDER_PREF)) {
+            if (sharedPreferences.getBoolean(DAILY_REMINDER_PREF, false)) {
+
+            } else {
+
+            }
+
+            if (sharedPreferences.getBoolean(NEWEST_REMINDER_PREF, false)) {
+
+            } else {
+
+            }
+        }
     }
 }
