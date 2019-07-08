@@ -14,27 +14,27 @@ import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
 
 @Dao
 public interface CatalogueDao {
-    @Insert (onConflict = REPLACE)
+    @Insert(onConflict = REPLACE)
     void insertFavoriteMovie(FavoriteMovie favoriteMovie);
 
-    @Insert (onConflict = REPLACE)
+    @Insert(onConflict = REPLACE)
     void insertFavoriteTvShow(FavoriteTvShow favoriteTvShow);
 
-    @Query ("SELECT * FROM FavoriteMovie")
+    @Query("SELECT * FROM FavoriteMovie")
     List<FavoriteMovie> getFavoriteMovies();
 
-    @Query ("SELECT * FROM FavoriteTvShow")
+    @Query("SELECT * FROM FavoriteTvShow")
     List<FavoriteTvShow> getFavoriteTvShows();
 
-    @Query ("SELECT COUNT(id) FROM FavoriteMovie WHERE id = :id")
+    @Query("SELECT COUNT(id) FROM FavoriteMovie WHERE id = :id")
     int checkMovieInTable (int id);
 
-    @Query ("SELECT COUNT(id) FROM FavoriteTvShow WHERE id = :id")
+    @Query("SELECT COUNT(id) FROM FavoriteTvShow WHERE id = :id")
     int checkTvShowInTable (int id);
 
-    @Query ("DELETE FROM FavoriteMovie WHERE id = :id")
+    @Query("DELETE FROM FavoriteMovie WHERE id = :id")
     void deleteFavoriteMovie(int id);
 
-    @Query ("DELETE FROM FavoriteTvShow WHERE id = :id")
+    @Query("DELETE FROM FavoriteTvShow WHERE id = :id")
     void deleteFavoriteTvShow(int id);
 }

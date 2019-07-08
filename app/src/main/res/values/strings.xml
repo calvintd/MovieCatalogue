@@ -57,6 +57,31 @@
     <string name="btn_reminder_close">Close</string>
     <string name="reminder_message_saved">Successfully saved the reminder settings!</string>
 
+    <string name="reminder_notification_daily_title">Daily Catalogue Reminder</string>
+    <string name="reminder_notification_daily_message">Have you checked out the catalogue today?</string>
+    <string name="reminder_notification_newest_title">Newest Movies Reminder</string>
+    <string name="reminder_notification_newest_message">Movie release(s) today: %d</string>
+
+    <!-- reminder technicalities -->
+    <string name="reminder_daily_request_code" translatable="false">100</string>
+    <string name="reminder_daily_hour_of_day" translatable="false">7</string>
+    <string name="reminder_daily_minute" translatable="false">0</string>
+    <string name="reminder_daily_second" translatable="false">5</string>
+
+    <string name="reminder_newest_request_code" translatable="false">101</string>
+    <string name="reminder_newest_hour_of_day" translatable="false">8</string>
+    <string name="reminder_newest_minute" translatable="false">0</string>
+    <string name="reminder_newest_second" translatable="false">5</string>
+
+    <string name="reminder_receiver_request_code_id" translatable="false">code</string>
+
+    <string name="reminder_notification_daily_id" translatable="false">210</string>
+    <string name="reminder_notification_daily_channel_id" translatable="false">DailyChannel</string>
+    <string name="reminder_notification_daily_channel_name" translatable="false">Daily Reminder Channel</string>
+    <string name="reminder_notification_newest_id" translatable="false">211</string>
+    <string name="reminder_notification_newest_channel_id" translatable="false">NewestChannel</string>
+    <string name="reminder_notification_newest_channel_name" translatable="false">Newest Reminder Channel</string>
+
     <!-- favorites activity -->
     <string name="favorites_activity_title">Favorites</string>
     <string name="tab_layout_fav_movie">Movies</string>

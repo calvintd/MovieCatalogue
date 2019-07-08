@@ -1,7 +1,10 @@
 package com.made.calvintd.moviecatalogue.fragment;
 
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -17,6 +20,10 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import com.made.calvintd.moviecatalogue.R;
+import com.made.calvintd.moviecatalogue.alarm.DailyReminderReceiver;
+import com.made.calvintd.moviecatalogue.alarm.NewestReminderReceiver;
+
+import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,9 +38,8 @@ public class ReminderFragment extends DialogFragment implements View.OnClickList
     @BindView(R.id.btn_reminder_close) Button btnClose;
     private SharedPreferences sharedPreferences;
     private Context context;
-    private String REMINDER_PREF;
-    private String DAILY_REMINDER_PREF;
-    private String NEWEST_REMINDER_PREF;
+    private Resources resources;
+    private String DAILY_REMINDER_PREF, NEWEST_REMINDER_PREF;
 
     public ReminderFragment() {
         // Required empty public constructor
@@ -54,8 +60,8 @@ public class ReminderFragment extends DialogFragment implements View.OnClickList
         btnClose.setOnClickListener(this);
 
         context = view.getContext();
-        Resources resources = context.getResources();
-        REMINDER_PREF = resources.getString(R.string.shared_preferences_reminder);
+        resources = context.getResources();
+        String REMINDER_PREF = resources.getString(R.string.shared_preferences_reminder);
         DAILY_REMINDER_PREF = resources.getString(R.string.shared_preferences_reminder_daily);
         NEWEST_REMINDER_PREF = resources.getString(R.string.shared_preferences_reminder_newest);
 
@@ -72,8 +78,9 @@ public class ReminderFragment extends DialogFragment implements View.OnClickList
                 editor.putBoolean(DAILY_REMINDER_PREF, switchDaily.isChecked());
                 editor.putBoolean(NEWEST_REMINDER_PREF, switchNewReleases.isChecked());
                 editor.apply();
+                onSharedPreferenceChanged(sharedPreferences, DAILY_REMINDER_PREF);
+                onSharedPreferenceChanged(sharedPreferences, NEWEST_REMINDER_PREF);
                 showToastSavedReminderPreferences();
-                onSharedPreferenceChanged(sharedPreferences, REMINDER_PREF);
                 this.dismiss();
                 break;
             case R.id.btn_reminder_close:
@@ -100,17 +107,51 @@ public class ReminderFragment extends DialogFragment implements View.OnClickList
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if(key.equals(REMINDER_PREF)) {
-            if (sharedPreferences.getBoolean(DAILY_REMINDER_PREF, false)) {
+        if(key.equals(DAILY_REMINDER_PREF)) {
+            AlarmManager alarmManager  = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            Calendar calendar = Calendar.getInstance();
 
+            final int DAILY_REQUEST_CODE = Integer.valueOf(resources.getString(R.string.reminder_daily_request_code));
+            Intent intent = new Intent(context, DailyReminderReceiver.class);
+            final int DAILY_HOUR = Integer.valueOf(resources.getString(R.string.reminder_daily_hour_of_day));
+            final int DAILY_MINUTE = Integer.valueOf(resources.getString(R.string.reminder_daily_minute));
+            final int DAILY_SECOND = Integer.valueOf(resources.getString(R.string.reminder_daily_second));
+
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, DAILY_REQUEST_CODE, intent, 0);
+
+            if(sharedPreferences.getBoolean(DAILY_REMINDER_PREF, false)) {
+                calendar.set(Calendar.HOUR_OF_DAY, DAILY_HOUR);
+                calendar.set(Calendar.MINUTE, DAILY_MINUTE);
+                calendar.set(Calendar.SECOND, DAILY_SECOND);
+                if(calendar.getTimeInMillis() < System.currentTimeMillis()) {
+                    calendar.add(Calendar.DAY_OF_MONTH, 1);
+                }
+                alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
             } else {
-
+                alarmManager.cancel(pendingIntent);
             }
+        } else if(key.equals(NEWEST_REMINDER_PREF)) {
+            AlarmManager alarmManager  = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            Calendar calendar = Calendar.getInstance();
 
-            if (sharedPreferences.getBoolean(NEWEST_REMINDER_PREF, false)) {
+            final int NEWEST_REQUEST_CODE = Integer.valueOf(resources.getString(R.string.reminder_newest_request_code));
+            Intent intent = new Intent(context, NewestReminderReceiver.class);
+            final int NEWEST_HOUR = Integer.valueOf(resources.getString(R.string.reminder_newest_hour_of_day));
+            final int NEWEST_MINUTE = Integer.valueOf(resources.getString(R.string.reminder_newest_minute));
+            final int NEWEST_SECOND = Integer.valueOf(resources.getString(R.string.reminder_newest_second));
 
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, NEWEST_REQUEST_CODE, intent, 0);
+
+            if(sharedPreferences.getBoolean(NEWEST_REMINDER_PREF, false)) {
+                calendar.set(Calendar.HOUR_OF_DAY, NEWEST_HOUR);
+                calendar.set(Calendar.MINUTE, NEWEST_MINUTE);
+                calendar.set(Calendar.SECOND, NEWEST_SECOND);
+                if(calendar.getTimeInMillis() < System.currentTimeMillis()) {
+                    calendar.add(Calendar.DAY_OF_MONTH, 1);
+                }
+                alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
             } else {
-
+                alarmManager.cancel(pendingIntent);
             }
         }
     }

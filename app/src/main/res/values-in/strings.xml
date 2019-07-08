@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">MovieCatalogue</string>
 
     <!-- main activity -->
@@ -51,6 +51,11 @@
     <string name="btn_reminder_save">Simpan</string>
     <string name="btn_reminder_close">Tutup</string>
     <string name="reminder_message_saved">Penyimpanan setelan pengingat sukses!</string>
+
+    <string name="reminder_notification_daily_title">Pengingat Katalog Harian</string>
+    <string name="reminder_notification_daily_message">Apakah kamu sudah melihat katalog hari ini?</string>
+    <string name="reminder_notification_newest_title">Pengingat Film Terbaru</string>
+    <string name="reminder_notification_newest_message">Rilisan film hari ini: %d</string>
 
     <!-- favorites activity -->
     <string name="favorites_activity_title">Favorit</string>

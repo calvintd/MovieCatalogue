@@ -3,6 +3,8 @@
     package="com.made.calvintd.moviecatalogue">
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
@@ -31,6 +33,26 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/favorite_tv_shows_widget_info" />
         </receiver>
+        <receiver
+            android:name=".alarm.DailyReminderReceiver"
+            android:directBootAware="true"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".alarm.NewestReminderReceiver"
+            android:directBootAware="true"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
 
         <activity
             android:name=".activity.FavoriteActivity"
@@ -46,6 +68,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.MovieDetailsActivity" />
+
         <service
             android:name="com.made.calvintd.moviecatalogue.widgetservice.FavoriteMoviesWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
