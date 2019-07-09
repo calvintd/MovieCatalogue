@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name">MovieCatalogue</string>
-
+<resources>
     <!-- main activity -->
     <string name="main_activity_title">Katalog</string>
     <string name="tab_layout_movie">Film Sedang Tayang</string>
@@ -69,9 +67,8 @@
     <string name="favorites_delete_deleted">Telah dihapus dari daftar favorit Anda!</string>
 
     <!-- menu -->
-    <string name="menu_language">Ubah Bahasa</string>
+    <string name="menu_language">Bahasa</string>
     <string name="menu_favorites">Favorit</string>
-    <string name="menu_search">Cari</string>
     <string name="menu_reminder">Pengingat</string>
 
     <!-- widgets -->

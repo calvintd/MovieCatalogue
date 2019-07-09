@@ -48,5 +48,4 @@ public class FavoriteMovieFragment extends Fragment {
 
         return view;
     }
-
 }

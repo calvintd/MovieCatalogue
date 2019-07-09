@@ -1,5 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">FavoriteMovieCatalogue</string>
+    <string name="app_name" translatable="false">FavoriteMovieCatalogue</string>
+
+    <!-- favorites activity -->
+    <string name="favorites_activity_title">Favorites</string>
+    <string name="tab_layout_fav_movie">Movies</string>
+    <string name="tab_layout_fav_tv_show">TV Shows</string>
+    <string name="fav_movie_listing">Favorite Movies</string>
+    <string name="fav_tv_show_listing">Favorite TV Shows</string>
+
+    <!-- item placeholders -->
+    <string name="tv_movie_title_placeholder">Movie Title</string>
+    <string name="tv_movie_release_date_placeholder">June 3, 2019</string>
+    <string name="tv_tv_show_name_placeholder">TV Show Name</string>
+    <string name="tv_tv_show_first_air_date_placeholder">June 3, 2019</string>
+    <string name="tv_details_score_placeholder">9.00 (900 votes)</string>
+    <plurals name="tv_score">
+        <item quantity="one"> (%d vote)</item>
+        <item quantity="other"> (%d votes)</item>
+    </plurals>
+
+    <!-- language fragment -->
+    <string name="language_fragment_title">Languages</string>
+    <string name="language_options_en">English</string>
+    <string name="language_options_in">Indonesian</string>
+    <string name="btn_language_choose">Choose</string>
+    <string name="btn_language_close">Close</string>
+    <string name="language_message_currently_used">This is the currently used language!</string>
+    <string name="language_message_chosen">Successfully changed the application\'s language!</string>
+
+    <!-- menu -->
+    <string name="menu_language">Language</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

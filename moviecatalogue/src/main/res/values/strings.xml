@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">MovieCatalogue</string>
+    <string name="app_name" translatable="false">MovieCatalogue</string>
 
     <!-- main activity -->
     <string name="main_activity_title">Catalogue</string>
@@ -94,9 +94,8 @@
     <string name="favorites_delete_deleted">The entry has been deleted from your favorites list!</string>
 
     <!-- menu -->
-    <string name="menu_search">Search</string>
-    <string name="menu_favorites">Favorites</string>
     <string name="menu_language">Language</string>
+    <string name="menu_favorites">Favorites</string>
     <string name="menu_reminder">Reminder</string>
 
     <!-- widgets -->

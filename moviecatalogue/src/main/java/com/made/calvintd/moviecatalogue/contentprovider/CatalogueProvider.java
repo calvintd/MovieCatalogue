@@ -59,6 +59,8 @@ public class CatalogueProvider extends ContentProvider {
                         null,
                         sortOrder);
                 break;
+            default:
+                throw new IllegalArgumentException("Unknown URI: "+uri);
         }
 
         if (cursor != null) {

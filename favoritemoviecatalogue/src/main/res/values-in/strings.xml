@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- favorites activity -->
+    <string name="favorites_activity_title">Favorit</string>
+    <string name="tab_layout_fav_movie">Film</string>
+    <string name="tab_layout_fav_tv_show">Acara TV</string>
+    <string name="fav_movie_listing">Film Favorit</string>
+    <string name="fav_tv_show_listing">Acara TV Favorit</string>
+
+    <!-- item placeholders -->
+    <string name="tv_movie_title_placeholder">Judul Film</string>
+    <string name="tv_movie_release_date_placeholder">3 Juni 2019</string>
+    <string name="tv_tv_show_name_placeholder">Nama Acara TV</string>
+    <string name="tv_tv_show_first_air_date_placeholder">3 Juni 2019</string>
+    <string name="tv_details_score_placeholder">9.00 (900 suara)</string>
+    <plurals name="tv_score">
+        <item quantity="other"> (%d suara)</item>
+    </plurals>
+
+    <!-- language fragment -->
+    <string name="language_fragment_title">Bahasa</string>
+    <string name="language_options_en">Inggris</string>
+    <string name="language_options_in">Indonesia</string>
+    <string name="btn_language_choose">Pilih</string>
+    <string name="btn_language_close">Tutup</string>
+    <string name="language_message_currently_used">Ini adalah bahasa yang sedang digunakan!</string>
+    <string name="language_message_chosen">Penggantian bahasa aplikasi sukses!</string>
+
+    <!-- menu -->
+    <string name="menu_language">Bahasa</string>
+</resources>
