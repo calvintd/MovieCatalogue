@@ -5,7 +5,7 @@ import android.arch.persistence.room.PrimaryKey;
 
 @Entity
 public class FavoriteMovie {
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     private int id;
 
     private String posterPath;

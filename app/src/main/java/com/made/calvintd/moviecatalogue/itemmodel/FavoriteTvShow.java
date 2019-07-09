@@ -7,7 +7,7 @@ import android.arch.persistence.room.PrimaryKey;
 public class FavoriteTvShow {
     private String firstAirDate;
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     private int id;
 
     private String name;

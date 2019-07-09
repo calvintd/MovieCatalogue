@@ -1,4 +1,4 @@
-package com.made.calvintd.moviecatalogue.alarm;
+package com.made.calvintd.moviecatalogue.alarmreceiver;
 
 import android.app.Notification;
 import android.app.NotificationChannel;

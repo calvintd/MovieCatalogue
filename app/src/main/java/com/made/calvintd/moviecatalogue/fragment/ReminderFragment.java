@@ -20,8 +20,8 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import com.made.calvintd.moviecatalogue.R;
-import com.made.calvintd.moviecatalogue.alarm.DailyReminderReceiver;
-import com.made.calvintd.moviecatalogue.alarm.NewestReminderReceiver;
+import com.made.calvintd.moviecatalogue.alarmreceiver.DailyReminderReceiver;
+import com.made.calvintd.moviecatalogue.alarmreceiver.NewestReminderReceiver;
 
 import java.util.Calendar;
 
