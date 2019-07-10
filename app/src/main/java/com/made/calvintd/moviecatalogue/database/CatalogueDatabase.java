@@ -13,7 +13,7 @@ import com.made.calvintd.moviecatalogue.itemmodel.FavoriteTvShow;
 public abstract class CatalogueDatabase extends RoomDatabase {
     private static CatalogueDatabase databaseInstance;
     public abstract CatalogueDao catalogueDao();
-    private final static String DATABASE_NAME = "CATALOGUE_DB";
+    private final static String DATABASE_NAME = "movieCatalogue.db";
 
     public static CatalogueDatabase getDatabase (final Context context) {
         if (databaseInstance == null) {

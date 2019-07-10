@@ -142,5 +142,6 @@ public class TvShowFragment extends Fragment implements TvShowView {
             recyclerView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
         }
+        searchView.clearFocus();
     }
 }

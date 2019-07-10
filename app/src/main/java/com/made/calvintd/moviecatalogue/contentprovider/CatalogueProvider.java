@@ -19,7 +19,7 @@ public class CatalogueProvider extends ContentProvider {
     private static final int FAVORITE_MOVIE = 100;
     private static final int FAVORITE_TV_SHOW = 101;
     private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-    private CatalogueHelper catalogueHelper = new CatalogueHelper(getContext());
+    private CatalogueHelper catalogueHelper;
 
     static {
         uriMatcher.addURI(CatalogueContract.AUTHORITY, CatalogueContract.FavoriteMovieItems.TABLE_NAME, FAVORITE_MOVIE);
@@ -28,6 +28,7 @@ public class CatalogueProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
+        catalogueHelper = new CatalogueHelper(getContext());
         return false;
     }
 
@@ -35,7 +36,7 @@ public class CatalogueProvider extends ContentProvider {
     @Override
     public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs,
         @Nullable String sortOrder) {
-        final SQLiteDatabase db = catalogueHelper.getReadableDatabase();
+        SQLiteDatabase db = catalogueHelper.getWritableDatabase();
         Cursor cursor = null;
 
         int match = uriMatcher.match(uri);
@@ -124,7 +125,7 @@ class CatalogueHelper extends SQLiteOpenHelper {
     }
 
     private void createFavoriteMovieTable(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE "+CatalogueContract.FavoriteMovieItems.TABLE_NAME+" ("+
+        db.execSQL("CREATE TABLE IF NOT EXISTS "+CatalogueContract.FavoriteMovieItems.TABLE_NAME+" ("+
             CatalogueContract.FavoriteMovieItems.ID+" INTEGER PRIMARY KEY, "+
             CatalogueContract.FavoriteMovieItems.POSTER_PATH+" TEXT, "+
             CatalogueContract.FavoriteMovieItems.RELEASE_DATE+" TEXT, "+
@@ -134,7 +135,7 @@ class CatalogueHelper extends SQLiteOpenHelper {
     }
 
     private void createFavoriteTvShowTable(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE "+CatalogueContract.FavoriteMovieItems.TABLE_NAME+" ("+
+        db.execSQL("CREATE TABLE IF NOT EXISTS "+CatalogueContract.FavoriteMovieItems.TABLE_NAME+" ("+
                 CatalogueContract.FavoriteTvShowItems.FIRST_AIR_DATE+" TEXT, "+
                 CatalogueContract.FavoriteTvShowItems.ID+" INTEGER PRIMARY KEY, "+
                 CatalogueContract.FavoriteTvShowItems.NAME+" TEXT, "+

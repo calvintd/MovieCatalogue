@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- favorites activity -->
-    <string name="favorites_activity_title">Favorit</string>
+    <string name="favorites_activity_title">Tayangan Favorit</string>
     <string name="tab_layout_fav_movie">Film</string>
     <string name="tab_layout_fav_tv_show">Acara TV</string>
     <string name="fav_movie_listing">Film Favorit</string>

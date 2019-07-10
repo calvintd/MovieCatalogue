@@ -144,5 +144,6 @@ public class MovieFragment extends Fragment implements MovieView {
             recyclerView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
         }
+        searchView.clearFocus();
     }
 }

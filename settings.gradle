@@ -1,1 +1,1 @@
-include ':moviecatalogue', ':favoritemoviecatalogue'
+include ':app', ':favoritemoviecatalogue'
