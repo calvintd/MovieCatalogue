@@ -80,20 +80,20 @@ public class MovieFragment extends Fragment implements MovieView {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
                 filteredMovies.clear();
                 for(Movie movie: movies) {
-                    if(movie.getTitle().toLowerCase().contains(newText.toLowerCase())) {
+                    if(movie.getTitle().toLowerCase().contains(query.toLowerCase())) {
                         filteredMovies.add(movie);
                     }
                 }
                 adapter.setListMovies(filteredMovies);
                 recyclerView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
                 return false;
             }
         });
@@ -132,6 +132,7 @@ public class MovieFragment extends Fragment implements MovieView {
         progressBar.setVisibility(View.GONE);
         recyclerView.setVisibility(View.VISIBLE);
         searchView.setVisibility(View.VISIBLE);
+        searchView.setSubmitButtonEnabled(true);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
     }

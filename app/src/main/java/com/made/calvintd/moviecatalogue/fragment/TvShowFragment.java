@@ -80,20 +80,20 @@ public class TvShowFragment extends Fragment implements TvShowView {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
                 filteredTvShows.clear();
                 for(TvShow tvShow: tvShows) {
-                    if(tvShow.getName().toLowerCase().contains(newText.toLowerCase())) {
+                    if(tvShow.getName().toLowerCase().contains(query.toLowerCase())) {
                         filteredTvShows.add(tvShow);
                     }
                 }
                 adapter.setListTvShows(filteredTvShows);
                 recyclerView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
                 return false;
             }
         });
@@ -130,6 +130,7 @@ public class TvShowFragment extends Fragment implements TvShowView {
         progressBar.setVisibility(View.GONE);
         recyclerView.setVisibility(View.VISIBLE);
         searchView.setVisibility(View.VISIBLE);
+        searchView.setSubmitButtonEnabled(true);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
     }
