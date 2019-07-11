@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu_search:
                 intent = new Intent(this, SearchActivity.class);
                 startActivity(intent);
+                break;
             case R.id.menu_favorite:
                 intent = new Intent(this, FavoriteActivity.class);
                 startActivity(intent);

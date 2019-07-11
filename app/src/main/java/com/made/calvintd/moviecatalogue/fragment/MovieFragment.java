@@ -36,12 +36,10 @@ import butterknife.ButterKnife;
 public class MovieFragment extends Fragment implements MovieView {
     @BindView(R.id.pb_movies) ProgressBar progressBar;
     @BindView(R.id.rv_movies) RecyclerView recyclerView;
-    @BindView(R.id.movie_searchview) SearchView searchView;
     MoviePresenter moviePresenter = new MoviePresenter(this);
     private ArrayList<Movie> movies = new ArrayList<>();
     private MovieAdapter adapter = new MovieAdapter();
     private MovieViewModel movieViewModel;
-    private ArrayList<Movie> filteredMovies = new ArrayList<>();
 
     public MovieFragment() {
         // Required empty public constructor
@@ -54,8 +52,7 @@ public class MovieFragment extends Fragment implements MovieView {
         View view = inflater.inflate(R.layout.fragment_movie, container, false);
         ButterKnife.bind(this, view);
 
-        recyclerView.setVisibility(View.INVISIBLE);
-        searchView.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.GONE);
 
         movieViewModel = ViewModelProviders.of( this).get(MovieViewModel.class);
         movieViewModel.getMovies().observe(this, getMoviesObserver);
@@ -70,25 +67,7 @@ public class MovieFragment extends Fragment implements MovieView {
         ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                if(filteredMovies.isEmpty()) {
-                    showDetails(movies.get(position));
-                } else {
-                    showDetails(filteredMovies.get(position));
-                }
-            }
-        });
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                filteredMovies.clear();
-                moviePresenter.getDataByName(filteredMovies, query);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
+                showDetails(movies.get(position));
             }
         });
 
@@ -103,7 +82,6 @@ public class MovieFragment extends Fragment implements MovieView {
                 recyclerView.setAdapter(adapter);
                 progressBar.setVisibility(View.GONE);
                 recyclerView.setVisibility(View.VISIBLE);
-                searchView.setVisibility(View.VISIBLE);
                 recyclerView.setHasFixedSize(true);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             }
@@ -125,23 +103,6 @@ public class MovieFragment extends Fragment implements MovieView {
 
         progressBar.setVisibility(View.GONE);
         recyclerView.setVisibility(View.VISIBLE);
-        searchView.setVisibility(View.VISIBLE);
-        searchView.setSubmitButtonEnabled(true);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
-    }
-
-    @Override
-    public void showQueriedMovies(MovieModel model) {
-        recyclerView.setAdapter(model.getMovieAdapter());
-        adapter = model.getMovieAdapter();
-        adapter.notifyDataSetChanged();
-        movieViewModel.postMutableLiveData(filteredMovies);
-
-        progressBar.setVisibility(View.GONE);
-        recyclerView.setVisibility(View.VISIBLE);
-        searchView.setVisibility(View.VISIBLE);
-        searchView.setSubmitButtonEnabled(true);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
     }
@@ -151,16 +112,5 @@ public class MovieFragment extends Fragment implements MovieView {
         if(getContext() != null) {
             Toast.makeText(getContext(), getContext().getResources().getString(R.string.api_data_failure), Toast.LENGTH_SHORT).show();
         }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if(!filteredMovies.isEmpty()) {
-            adapter.setListMovies(filteredMovies);
-            recyclerView.setAdapter(adapter);
-            adapter.notifyDataSetChanged();
-        }
-        searchView.clearFocus();
     }
 }

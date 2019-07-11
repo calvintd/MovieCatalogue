@@ -24,61 +24,21 @@ public class MoviePresenter {
         this.view = view;
     }
 
-    public void getData(final ArrayList<Movie> movies) {
+    public void getData(ArrayList<Movie> movies) {
         ApiInterface apiInterface = RetrofitInstance.getRetrofitInstance().create(ApiInterface.class);
         Call<MovieListResponse> call = apiInterface.getNowPlayingMoviesList();
 
-        call.enqueue(new Callback<MovieListResponse>() {
-            @Override
-            public void onResponse(Call<MovieListResponse> call, Response<MovieListResponse> response) {
-                if (response.isSuccessful()) {
-                    MovieListResponse movieListResponse = response.body();
-
-                    try {
-                        if (movieListResponse != null) {
-                            List<MovieListResponse.Results> results = movieListResponse.getResults();
-
-                            for (MovieListResponse.Results result : results) {
-                                if (result.getPosterPath() != null) {
-                                    movies.add(new Movie(result.getId(), result.getOverview(), "https://image.tmdb.org/t/p/w185" +
-                                            result.getPosterPath(), result.getReleaseDate(), result.getTitle(), result.getVoteAverage(),
-                                            result.getVoteCount()));
-                                } else {
-                                    movies.add(new Movie(result.getId(), result.getOverview(), null, result.getReleaseDate(),
-                                            result.getTitle(), result.getVoteAverage(), result.getVoteCount()));
-                                }
-                            }
-
-                            MovieAdapter movieAdapter = new MovieAdapter();
-                            movieAdapter.setListMovies(movies);
-                            MovieModel model = new MovieModel(movieAdapter);
-                            view.showMovies(model);
-                        }
-                    } finally {
-                        if (movieListResponse != null) {
-                            movieListResponse.toString();
-                        }
-                    }
-                } else {
-                    if (response.errorBody() != null) {
-                        Log.d("APIFailure", response.errorBody().toString());
-                        view.showError();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<MovieListResponse> call, Throwable t) {
-                Log.d("APIFailure", t.getCause().toString());
-                view.showError();
-            }
-        });
+        handleCall(call, movies);
     }
 
-    public void getDataByName(final ArrayList<Movie> movies, String query) {
+    public void getDataByName(ArrayList<Movie> movies, String query) {
         ApiInterface apiInterface = RetrofitInstance.getRetrofitInstance().create(ApiInterface.class);
         Call<MovieListResponse> call = apiInterface.getNowPlayingMoviesListByName(query);
 
+        handleCall(call, movies);
+    }
+
+    private void handleCall(Call<MovieListResponse> call, final ArrayList<Movie> movies) {
         call.enqueue(new Callback<MovieListResponse>() {
             @Override
             public void onResponse(Call<MovieListResponse> call, Response<MovieListResponse> response) {
@@ -103,7 +63,7 @@ public class MoviePresenter {
                             MovieAdapter movieAdapter = new MovieAdapter();
                             movieAdapter.setListMovies(movies);
                             MovieModel model = new MovieModel(movieAdapter);
-                            view.showQueriedMovies(model);
+                            view.showMovies(model);
                         }
                     } finally {
                         if (movieListResponse != null) {

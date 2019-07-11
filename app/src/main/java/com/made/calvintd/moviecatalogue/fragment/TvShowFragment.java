@@ -36,12 +36,10 @@ import butterknife.ButterKnife;
 public class TvShowFragment extends Fragment implements TvShowView {
     @BindView(R.id.pb_tv_shows) ProgressBar progressBar;
     @BindView(R.id.rv_tv_shows) RecyclerView recyclerView;
-    @BindView(R.id.tv_show_searchview) SearchView searchView;
     TvShowPresenter tvShowPresenter = new TvShowPresenter(this);
     private ArrayList<TvShow> tvShows = new ArrayList<>();
     private TvShowAdapter adapter = new TvShowAdapter();
     private TvShowViewModel tvShowViewModel;
-    private ArrayList<TvShow> filteredTvShows = new ArrayList<>();
 
     public TvShowFragment() {
         // Required empty public constructor
@@ -54,8 +52,7 @@ public class TvShowFragment extends Fragment implements TvShowView {
         View view = inflater.inflate(R.layout.fragment_tv_show, container, false);
         ButterKnife.bind(this, view);
 
-        recyclerView.setVisibility(View.INVISIBLE);
-        searchView.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.GONE);
 
         tvShowViewModel = ViewModelProviders.of(this).get(TvShowViewModel.class);
         tvShowViewModel.getTvShows().observe(this, getTvShowsObserver);
@@ -70,25 +67,7 @@ public class TvShowFragment extends Fragment implements TvShowView {
         ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                if(filteredTvShows.isEmpty()) {
-                    showDetails(tvShows.get(position));
-                } else {
-                    showDetails(filteredTvShows.get(position));
-                }
-            }
-        });
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                filteredTvShows.clear();
-                tvShowPresenter.getDataByName(filteredTvShows, query);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
+                showDetails(tvShows.get(position));
             }
         });
 
@@ -102,7 +81,6 @@ public class TvShowFragment extends Fragment implements TvShowView {
             recyclerView.setAdapter(adapter);
             progressBar.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);
-            searchView.setVisibility(View.VISIBLE);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         }
@@ -123,23 +101,6 @@ public class TvShowFragment extends Fragment implements TvShowView {
 
         progressBar.setVisibility(View.GONE);
         recyclerView.setVisibility(View.VISIBLE);
-        searchView.setVisibility(View.VISIBLE);
-        searchView.setSubmitButtonEnabled(true);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
-    }
-
-    @Override
-    public void showQueriedTvShows(TvShowModel model) {
-        recyclerView.setAdapter(model.getTvShowAdapter());
-        adapter = model.getTvShowAdapter();
-        adapter.notifyDataSetChanged();
-        tvShowViewModel.postMutableLiveData(filteredTvShows);
-
-        progressBar.setVisibility(View.GONE);
-        recyclerView.setVisibility(View.VISIBLE);
-        searchView.setVisibility(View.VISIBLE);
-        searchView.setSubmitButtonEnabled(true);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
     }
@@ -149,16 +110,5 @@ public class TvShowFragment extends Fragment implements TvShowView {
         if(getContext() != null) {
             Toast.makeText(getContext(), getContext().getResources().getString(R.string.api_data_failure), Toast.LENGTH_SHORT).show();
         }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if(!filteredTvShows.isEmpty()) {
-            adapter.setListTvShows(filteredTvShows);
-            recyclerView.setAdapter(adapter);
-            adapter.notifyDataSetChanged();
-        }
-        searchView.clearFocus();
     }
 }

@@ -4,6 +4,5 @@ import com.made.calvintd.moviecatalogue.model.TvShowModel;
 
 public interface TvShowView {
     void showTvShows(TvShowModel model);
-    void showQueriedTvShows(TvShowModel model);
     void showError();
 }

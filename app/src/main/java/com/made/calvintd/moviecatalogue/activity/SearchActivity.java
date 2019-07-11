@@ -37,7 +37,7 @@ public class SearchActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         if(getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(getResources().getString(R.string.main_activity_title));
+            getSupportActionBar().setTitle(getResources().getString(R.string.search_activity_title));
         }
 
         config = this.getResources().getConfiguration();
