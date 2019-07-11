@@ -65,8 +65,13 @@ public class FavoriteMovieAdapter extends RecyclerView.Adapter<FavoriteMovieAdap
         favoriteMovieViewHolder.tvReleaseDate.setText(DateConverter.convertDate(favoriteMovieViewHolder.tvReleaseDate.getContext(),
                 favoriteMovie.getReleaseDate()));
 
-        favoriteMovieViewHolder.tvScore.setText(favoriteMovie.getVoteAverage() + " " + favoriteMovieViewHolder.tvScore.getResources()
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(favoriteMovie.getVoteAverage());
+        stringBuilder.append("");
+        stringBuilder.append(favoriteMovieViewHolder.tvScore.getResources()
                 .getQuantityString(R.plurals.tv_score, favoriteMovie.getVoteCount(), favoriteMovie.getVoteCount()));
+
+        favoriteMovieViewHolder.tvScore.setText(stringBuilder.toString());
 
         favoriteMovieViewHolder.imgDelete.setOnClickListener(new View.OnClickListener() {
             @Override

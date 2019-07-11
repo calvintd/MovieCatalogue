@@ -1,10 +1,7 @@
 package com.made.calvintd.moviecatalogue.presenter;
 
-import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.made.calvintd.moviecatalogue.R;
 import com.made.calvintd.moviecatalogue.adapter.MovieAdapter;
 import com.made.calvintd.moviecatalogue.itemmodel.Movie;
 import com.made.calvintd.moviecatalogue.itemmodel.MovieListResponse;
@@ -27,7 +24,7 @@ public class MoviePresenter {
         this.view = view;
     }
 
-    public void getData(final Context context, final ArrayList<Movie> movies) {
+    public void getData(final ArrayList<Movie> movies) {
         ApiInterface apiInterface = RetrofitInstance.getRetrofitInstance().create(ApiInterface.class);
         Call<MovieListResponse> call = apiInterface.getNowPlayingMoviesList();
 
@@ -65,15 +62,66 @@ public class MoviePresenter {
                 } else {
                     if (response.errorBody() != null) {
                         Log.d("APIFailure", response.errorBody().toString());
+                        view.showError();
                     }
-                    Toast.makeText(context, context.getResources().getString(R.string.api_data_failure), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<MovieListResponse> call, Throwable t) {
                 Log.d("APIFailure", t.getCause().toString());
-                Toast.makeText(context, context.getResources().getString(R.string.api_data_failure), Toast.LENGTH_SHORT).show();
+                view.showError();
+            }
+        });
+    }
+
+    public void getDataByName(final ArrayList<Movie> movies, String query) {
+        ApiInterface apiInterface = RetrofitInstance.getRetrofitInstance().create(ApiInterface.class);
+        Call<MovieListResponse> call = apiInterface.getNowPlayingMoviesListByName(query);
+
+        call.enqueue(new Callback<MovieListResponse>() {
+            @Override
+            public void onResponse(Call<MovieListResponse> call, Response<MovieListResponse> response) {
+                if(response.isSuccessful()) {
+                    MovieListResponse movieListResponse = response.body();
+
+                    try {
+                        if (movieListResponse != null) {
+                            List<MovieListResponse.Results> results = movieListResponse.getResults();
+
+                            for (MovieListResponse.Results result : results) {
+                                if (result.getPosterPath() != null) {
+                                    movies.add(new Movie(result.getId(), result.getOverview(), "https://image.tmdb.org/t/p/w185" +
+                                            result.getPosterPath(), result.getReleaseDate(), result.getTitle(), result.getVoteAverage(),
+                                            result.getVoteCount()));
+                                } else {
+                                    movies.add(new Movie(result.getId(), result.getOverview(), null, result.getReleaseDate(),
+                                            result.getTitle(), result.getVoteAverage(), result.getVoteCount()));
+                                }
+                            }
+
+                            MovieAdapter movieAdapter = new MovieAdapter();
+                            movieAdapter.setListMovies(movies);
+                            MovieModel model = new MovieModel(movieAdapter);
+                            view.showQueriedMovies(model);
+                        }
+                    } finally {
+                        if (movieListResponse != null) {
+                            movieListResponse.toString();
+                        }
+                    }
+                } else {
+                    if (response.errorBody() != null) {
+                        Log.d("APIFailure", response.errorBody().toString());
+                        view.showError();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MovieListResponse> call, Throwable t) {
+                Log.d("APIFailure", t.getCause().toString());
+                view.showError();
             }
         });
     }

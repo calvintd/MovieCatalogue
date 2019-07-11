@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.made.calvintd.moviecatalogue.R;
 import com.made.calvintd.moviecatalogue.activity.TvShowDetailsActivity;
@@ -60,7 +61,7 @@ public class TvShowFragment extends Fragment implements TvShowView {
         tvShowViewModel.getTvShows().observe(this, getTvShowsObserver);
 
         if(tvShowViewModel.getTvShows().getValue() == null) {
-            tvShowPresenter.getData(getActivity(), tvShows);
+            tvShowPresenter.getData(tvShows);
         } else {
             tvShows = tvShowViewModel.getTvShows().getValue();
             adapter.notifyDataSetChanged();
@@ -81,14 +82,7 @@ public class TvShowFragment extends Fragment implements TvShowView {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 filteredTvShows.clear();
-                for(TvShow tvShow: tvShows) {
-                    if(tvShow.getName().toLowerCase().contains(query.toLowerCase())) {
-                        filteredTvShows.add(tvShow);
-                    }
-                }
-                adapter.setListTvShows(filteredTvShows);
-                recyclerView.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
+                tvShowPresenter.getDataByName(filteredTvShows, query);
                 return false;
             }
 
@@ -133,6 +127,28 @@ public class TvShowFragment extends Fragment implements TvShowView {
         searchView.setSubmitButtonEnabled(true);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+    }
+
+    @Override
+    public void showQueriedTvShows(TvShowModel model) {
+        recyclerView.setAdapter(model.getTvShowAdapter());
+        adapter = model.getTvShowAdapter();
+        adapter.notifyDataSetChanged();
+        tvShowViewModel.postMutableLiveData(filteredTvShows);
+
+        progressBar.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.VISIBLE);
+        searchView.setVisibility(View.VISIBLE);
+        searchView.setSubmitButtonEnabled(true);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+    }
+
+    @Override
+    public void showError() {
+        if(getContext() != null) {
+            Toast.makeText(getContext(), getContext().getResources().getString(R.string.api_data_failure), Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

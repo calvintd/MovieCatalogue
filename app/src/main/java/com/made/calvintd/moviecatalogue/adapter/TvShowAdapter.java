@@ -60,8 +60,13 @@ public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.TvShowView
 
         tvShowViewHolder.tvFirstAirDate.setText(DateConverter.convertDate(tvShowViewHolder.tvFirstAirDate.getContext(), tvShow.getFirstAirDate()));
 
-        tvShowViewHolder.tvScore.setText(tvShow.getVoteAverage() +  " " + tvShowViewHolder.tvScore.getResources()
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(tvShow.getVoteAverage());
+        stringBuilder.append(" ");
+        stringBuilder.append(tvShowViewHolder.tvScore.getResources()
                 .getQuantityString(R.plurals.tv_score, tvShow.getVoteCount(), tvShow.getVoteCount()));
+
+        tvShowViewHolder.tvScore.setText(stringBuilder.toString());
     }
 
     @Override

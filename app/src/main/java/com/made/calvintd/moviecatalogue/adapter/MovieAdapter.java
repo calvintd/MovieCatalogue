@@ -60,8 +60,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
         movieViewHolder.tvReleaseDate.setText(DateConverter.convertDate(movieViewHolder.tvReleaseDate.getContext(), movie.getReleaseDate()));
 
-        movieViewHolder.tvScore.setText(movie.getVoteAverage() + " " + movieViewHolder.tvScore.getResources()
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(movie.getVoteAverage());
+        stringBuilder.append(" ");
+        stringBuilder.append(movieViewHolder.tvScore.getResources()
                 .getQuantityString(R.plurals.tv_score, movie.getVoteCount(), movie.getVoteCount()));
+
+        movieViewHolder.tvScore.setText(stringBuilder.toString());
     }
 
     @Override

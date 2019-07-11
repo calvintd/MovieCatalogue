@@ -127,12 +127,6 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Glide.get(this).clearMemory();
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         FragmentManager fragmentManager = getSupportFragmentManager();
 
@@ -147,6 +141,12 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Glide.get(this).clearMemory();
     }
 
     @Override

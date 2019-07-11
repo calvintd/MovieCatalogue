@@ -63,8 +63,13 @@ public class FavoriteTvShowAdapter extends RecyclerView.Adapter<FavoriteTvShowAd
         favoriteTvShowViewHolder.tvFirstAirDate.setText(DateConverter.convertDate(favoriteTvShowViewHolder.tvFirstAirDate.getContext(),
                 favoriteTvShow.getFirstAirDate()));
 
-        favoriteTvShowViewHolder.tvScore.setText(favoriteTvShow.getVoteAverage() + " " + favoriteTvShowViewHolder.tvScore.getResources()
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(favoriteTvShow.getVoteAverage());
+        stringBuilder.append(" ");
+        stringBuilder.append(favoriteTvShowViewHolder.tvScore.getResources()
                 .getQuantityString(R.plurals.tv_score, favoriteTvShow.getVoteCount(), favoriteTvShow.getVoteCount()));
+
+        favoriteTvShowViewHolder.tvScore.setText(stringBuilder.toString());
 
         favoriteTvShowViewHolder.imgDelete.setOnClickListener(new View.OnClickListener() {
             @Override

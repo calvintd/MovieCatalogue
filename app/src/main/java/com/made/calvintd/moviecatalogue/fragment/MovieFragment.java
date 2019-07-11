@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.made.calvintd.moviecatalogue.R;
 import com.made.calvintd.moviecatalogue.activity.MovieDetailsActivity;
@@ -60,7 +61,7 @@ public class MovieFragment extends Fragment implements MovieView {
         movieViewModel.getMovies().observe(this, getMoviesObserver);
 
         if(movieViewModel.getMovies().getValue() == null) {
-            moviePresenter.getData(getActivity(), movies);
+            moviePresenter.getData(movies);
         } else {
             movies = movieViewModel.getMovies().getValue();
             adapter.notifyDataSetChanged();
@@ -81,14 +82,7 @@ public class MovieFragment extends Fragment implements MovieView {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 filteredMovies.clear();
-                for(Movie movie: movies) {
-                    if(movie.getTitle().toLowerCase().contains(query.toLowerCase())) {
-                        filteredMovies.add(movie);
-                    }
-                }
-                adapter.setListMovies(filteredMovies);
-                recyclerView.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
+                moviePresenter.getDataByName(filteredMovies, query);
                 return false;
             }
 
@@ -135,6 +129,28 @@ public class MovieFragment extends Fragment implements MovieView {
         searchView.setSubmitButtonEnabled(true);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+    }
+
+    @Override
+    public void showQueriedMovies(MovieModel model) {
+        recyclerView.setAdapter(model.getMovieAdapter());
+        adapter = model.getMovieAdapter();
+        adapter.notifyDataSetChanged();
+        movieViewModel.postMutableLiveData(filteredMovies);
+
+        progressBar.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.VISIBLE);
+        searchView.setVisibility(View.VISIBLE);
+        searchView.setSubmitButtonEnabled(true);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+    }
+
+    @Override
+    public void showError() {
+        if(getContext() != null) {
+            Toast.makeText(getContext(), getContext().getResources().getString(R.string.api_data_failure), Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
