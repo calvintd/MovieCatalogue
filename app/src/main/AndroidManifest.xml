@@ -16,6 +16,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".activity.MainActivity"
+            android:theme="@style/AppThemeNAB">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.SearchActivity"
+            android:theme="@style/AppThemeNAB" />
+        <activity
+            android:name=".activity.FavoriteActivity"
+            android:theme="@style/AppThemeNAB" />
+        <activity android:name=".activity.MovieDetailsActivity" />
+        <activity android:name=".activity.TvShowDetailsActivity" />
+
         <receiver
             android:name=".widgetprovider.FavoriteMoviesWidgetProvider"
             android:label="@string/favorite_movies_widget_id">
@@ -58,22 +74,6 @@
                 <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-
-        <activity
-            android:name=".activity.MainActivity"
-            android:theme="@style/AppThemeNAB">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".activity.SearchActivity"
-            android:theme="@style/AppThemeNAB"/>
-        <activity
-            android:name=".activity.FavoriteActivity"
-            android:theme="@style/AppThemeNAB" />
-        <activity android:name=".activity.MovieDetailsActivity" />
-        <activity android:name=".activity.TvShowDetailsActivity" />
 
         <service
             android:name=".widgetservice.FavoriteMoviesWidgetService"
