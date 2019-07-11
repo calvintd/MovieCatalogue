@@ -60,18 +60,20 @@
     <string name="reminder_notification_daily_title">Daily Catalogue Reminder</string>
     <string name="reminder_notification_daily_message">Have you checked out the catalogue today?</string>
     <string name="reminder_notification_newest_title">Newest Movies Reminder</string>
-    <string name="reminder_notification_newest_message">Movie release(s) today: %d</string>
+    <string name="reminder_notification_newest_message_single">%s is released today!</string>
+    <string name="reminder_notification_newest_message_multiple">There are %d movies released today, including %s!</string>
+    <string name="reminder_notification_newest_message_zero">There are no movie releases today!</string>
 
     <!-- reminder technicalities -->
     <string name="reminder_daily_request_code" translatable="false">100</string>
     <string name="reminder_daily_hour_of_day" translatable="false">7</string>
     <string name="reminder_daily_minute" translatable="false">0</string>
-    <string name="reminder_daily_second" translatable="false">5</string>
+    <string name="reminder_daily_second" translatable="false">0</string>
 
     <string name="reminder_newest_request_code" translatable="false">101</string>
     <string name="reminder_newest_hour_of_day" translatable="false">8</string>
     <string name="reminder_newest_minute" translatable="false">0</string>
-    <string name="reminder_newest_second" translatable="false">5</string>
+    <string name="reminder_newest_second" translatable="false">0</string>
 
     <string name="reminder_receiver_request_code_id" translatable="false">code</string>
 

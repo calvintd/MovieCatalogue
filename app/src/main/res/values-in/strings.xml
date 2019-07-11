@@ -53,7 +53,9 @@
     <string name="reminder_notification_daily_title">Pengingat Katalog Harian</string>
     <string name="reminder_notification_daily_message">Apakah kamu sudah melihat katalog hari ini?</string>
     <string name="reminder_notification_newest_title">Pengingat Film Terbaru</string>
-    <string name="reminder_notification_newest_message">Rilisan film hari ini: %d</string>
+    <string name="reminder_notification_newest_message_single">%s dirilis hari ini!</string>
+    <string name="reminder_notification_newest_message_multiple">Ada %d film yang dirilis hari ini, termasuk %s!</string>
+    <string name="reminder_notification_newest_message_zero">Tidak ada film yang dirilis hari ini!</string>
 
     <!-- favorites activity -->
     <string name="favorites_activity_title">Favorit</string>

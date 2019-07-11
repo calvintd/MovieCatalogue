@@ -20,8 +20,10 @@ import com.made.calvintd.moviecatalogue.restapi.ApiInterface;
 import com.made.calvintd.moviecatalogue.restapi.RetrofitInstance;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,7 +31,8 @@ import retrofit2.Response;
 
 public class NewestReminderReceiver extends BroadcastReceiver {
     private final long[] vibrationPattern = new long[]{1000, 1000, 1000, 1000, 1000};
-    private int NUMBER_OF_MOVIES = 0;
+    private ArrayList<String> movieTitles = new ArrayList<>();
+    private Random random = new Random();
 
     @Override
     public void onReceive(final Context context, Intent intent) {
@@ -50,7 +53,7 @@ public class NewestReminderReceiver extends BroadcastReceiver {
 
                             for(MovieListResponse.Results result: results) {
                                 if(result.getReleaseDate().equals(simpleDateFormat.format(calendar.getTime()))) {
-                                    NUMBER_OF_MOVIES++;
+                                    movieTitles.add(result.getTitle());
                                 }
                             }
                         }
@@ -78,8 +81,16 @@ public class NewestReminderReceiver extends BroadcastReceiver {
         final String NEWEST_NOTIFICATION_CHANNEL_ID = context.getResources().getString(R.string.reminder_notification_newest_channel_id);
         final String NEWEST_NOTIFICATION_CHANNEL_NAME = context.getResources().getString(R.string.reminder_notification_newest_channel_name);
         final String NEWEST_NOTIFICATION_TITLE = context.getResources().getString(R.string.reminder_notification_newest_title);
-        final String NEWEST_NOTIFICATION_MESSAGE = String.format(context.getResources().getString(R.string.reminder_notification_newest_message),
-                NUMBER_OF_MOVIES);
+        final String NEWEST_NOTIFICATION_MESSAGE;
+        if(movieTitles.size() == 1) {
+            NEWEST_NOTIFICATION_MESSAGE = String.format(context.getResources().getString(R.string.reminder_notification_newest_message_single),
+                    movieTitles.get(0));
+        } else if (movieTitles.size() > 1){
+            NEWEST_NOTIFICATION_MESSAGE = String.format(context.getResources().getString(R.string.reminder_notification_newest_message_multiple),
+                    movieTitles.size(), movieTitles.get(random.nextInt(movieTitles.size() - 1)));
+        } else {
+            NEWEST_NOTIFICATION_MESSAGE = context.getResources().getString(R.string.reminder_notification_newest_message_zero);
+        }
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         Uri reminderSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
